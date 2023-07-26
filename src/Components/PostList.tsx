@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
 import { Post } from "./Post"
-// import { PostForm } from '../Posts/PostForm'
+import { PostForm } from '../Components/PostForm'
 import { IPost } from "../types/data"
-import axios from 'axios';
+import { axiosInstance } from "../Api/Api.js"
 
 export const PostList = () => {
   const [posts, setPosts] = useState<IPost[]>([])
@@ -13,9 +13,8 @@ export const PostList = () => {
   }, [isUpdated])
 
   const getPosts = async () => {
-    const url = process.env.REACT_APP_API_URL + '/api/v1/posts'
     try {
-      const res = await axios.get(url)
+      const res = await axiosInstance.get('/api/v1/posts')
       const data = res.data
 
       setPosts(data.reverse())
@@ -36,7 +35,7 @@ export const PostList = () => {
     <>
       <div>
         <h1>Post List</h1>
-        {/* <PostForm updatePostList={updatePostList} /> */}
+        <PostForm updatePostList={updatePostList} />
         {posts.map((post: IPost) => (
           <Post
             key={post.id}
