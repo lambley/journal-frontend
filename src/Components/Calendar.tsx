@@ -3,7 +3,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { axiosInstance } from "../Api/Api.js"
 import { IPost } from '../types/data.js';
-import { on } from 'events';
+import moment from 'moment';
 
 type ValuePiece = Date | null;
 
@@ -39,10 +39,13 @@ export const MyCalendar = () => {
         <Calendar
           onChange={onChange} value={value}
           tileClassName={({ date, view }) => {
-            if(postDates.find(postDate => new Date(postDate)==date)){
-              console.log('match');
-
+            if(moment(date).format('YYYY-MM-DD') == moment(postDates[0]).format('YYYY-MM-DD')){
               return 'highlight'
+            }
+          }}
+          onClickDay={(value, event) => {
+            if (moment(value).format('YYYY-MM-DD') == moment(postDates[0]).format('YYYY-MM-DD')) {
+              // Show the post
             }
           }}
         />
