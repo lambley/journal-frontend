@@ -31,19 +31,33 @@ export const PostList = () => {
     setIsUpdated(true)
   }
 
+  const handleDelete = async (id:number) => {
+    try {
+      const response = await axiosInstance.delete(`/api/v1/posts/${id}`)
+      console.log(response)
+      getPosts()
+    } catch(error: any) {
+      console.log(error)
+    }
+  }
+
   return(
     <>
       <div>
         <h1>Post List</h1>
         <PostForm updatePostList={updatePostList} />
         {posts.map((post: IPost) => (
-          <Post
-            key={post.id}
-            title={post.title}
-            content={post.content}
-            label={post.label}
-            created_at={post.created_at}
-          />
+          <div>
+            <button onClick={()=>handleDelete(post.id!)}>Delete</button>
+            <Post
+              key={post.id}
+              id={post.id}
+              title={post.title}
+              content={post.content}
+              label={post.label}
+              created_at={post.created_at}
+            />
+          </div>
         ))}
       </div>
     </>

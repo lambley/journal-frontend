@@ -3,7 +3,6 @@ import { IPost } from "../types/data"
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import axios from "axios";
 
 export const PostForm = (props: { updatePostList: (post: IPost) => void; }) => {
   const [title, setTitle] = useState<string>('')
@@ -22,7 +21,7 @@ export const PostForm = (props: { updatePostList: (post: IPost) => void; }) => {
     }
 
     try {
-      const response = await axiosInstance.post('http://localhost:3000/api/v1/posts', {post: postData})
+      const response = await axiosInstance.post('/api/v1/posts', {post: postData})
 
         props.updatePostList(response.data)
 
