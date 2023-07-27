@@ -103,7 +103,9 @@ export const PostList = () => {
       <div>
         <h1>Post List</h1>
         <button onClick={()=>{setShowForm(!showForm)}}>Create New Post</button>
-        {showForm && <PostForm updatePostList={updatePostList} />}
+        <div className="post-form-foreground">
+          {showForm && <PostForm updatePostList={updatePostList} />}
+        </div>
         <div className="fixed-scroll">
           {posts.map((post: IPost) => (
             <div>
