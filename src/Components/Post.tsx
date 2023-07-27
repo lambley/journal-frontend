@@ -22,8 +22,8 @@ export const Post = (props: IPost) => {
       <h2>{props.id}. {title}</h2>
       <p>{content}</p>
       <small className={`post-label ${colourLabels(label)}`}>{label}</small>
+      <small className="post-date"><i>Added on {created_at.toString().slice(0,10)}</i></small>
       <hr />
-      <p>Created at {created_at.toString()}</p>
     </>
   )
 }

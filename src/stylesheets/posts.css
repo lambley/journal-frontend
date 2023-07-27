@@ -24,3 +24,9 @@
   background: none;
   border: none;
 }
+
+.post-date {
+  font-size: 12px;
+  color: #808080;
+  margin-left: 16px;
+}
