@@ -1,5 +1,4 @@
 import { IPost } from "../types/data";
-import { axiosInstance } from "../Api/Api.js"
 
 export const Post = (props: IPost) => {
 

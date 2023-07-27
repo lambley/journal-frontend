@@ -14,6 +14,7 @@ export const PostList = () => {
     isEdit: false,
     id: 0
   })
+  const [showForm, setShowForm] = useState<Boolean>(false)
 
   useEffect(() => {
     getPosts()
@@ -101,7 +102,8 @@ export const PostList = () => {
     <>
       <div>
         <h1>Post List</h1>
-        <PostForm updatePostList={updatePostList} />
+        <button onClick={()=>{setShowForm(!showForm)}}>Create New Post</button>
+        {showForm && <PostForm updatePostList={updatePostList} />}
         {posts.map((post: IPost) => (
           <div>
             <button onClick={()=>handleDelete(post.id!)}>Delete</button>
