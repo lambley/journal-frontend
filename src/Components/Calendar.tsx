@@ -14,11 +14,11 @@ export const MyCalendar = () => {
   const [posts, setPosts] = useState<IPost[]>([])
   const [isUpdated, setIsUpdated] = useState<Boolean>(false)
   const [postDates, setPostDates] = useState<Date[]>([])
-
+  const [postToBeDisplayed, setPostToBeDisplayed] = useState<IPost[]>([])
   useEffect(() => {
     setPostDates(posts.map((post: IPost) => post.created_at))
     setIsUpdated(false)
-  }, [isUpdated])
+  }, [isUpdated, posts])
 
   const getPosts = async () => {
     try {
@@ -39,13 +39,17 @@ export const MyCalendar = () => {
         <Calendar
           onChange={onChange} value={value}
           tileClassName={({ date, view }) => {
-            if(moment(date).format('YYYY-MM-DD') == moment(postDates[0]).format('YYYY-MM-DD')){
-              return 'highlight'
-            }
+            if(postDates.find(x=>moment(x).format('DD-MM-YYYY')===moment(date).format("DD-MM-YYYY"))){
+              return  'highlight'
+             }
+            // if(moment(date).format('YYYY-MM-DD') == moment(postDates[0]).format('YYYY-MM-DD')){
+            //   return 'highlight'
+            // }
           }}
           onClickDay={(value, event) => {
             if (moment(value).format('YYYY-MM-DD') == moment(postDates[0]).format('YYYY-MM-DD')) {
               // Show the post
+              // setPostToBeDisplayed()
             }
           }}
         />

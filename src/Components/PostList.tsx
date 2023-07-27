@@ -3,6 +3,8 @@ import { Post } from "./Post"
 import { PostForm } from '../Components/PostForm'
 import { IPost } from "../types/data"
 import { axiosInstance } from "../Api/Api.js"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSquareXmark, faSquarePen } from '@fortawesome/free-solid-svg-icons'
 
 export const PostList = () => {
   const [posts, setPosts] = useState<IPost[]>([])
@@ -109,13 +111,18 @@ export const PostList = () => {
         <div className="fixed-scroll">
           {posts.map((post: IPost) => (
             <div>
-              <button onClick={()=>handleDelete(post.id!)}>Delete</button>
               <button onClick={()=>{setIsEditing(
                 {
                   isEdit: !isEditing.isEdit,
                   id: post.id!
                 }
-              )}}>Edit</button>
+                )}}
+              >
+                <FontAwesomeIcon icon={faSquarePen} />
+              </button>
+              <button onClick={()=>handleDelete(post.id!)}>
+                <FontAwesomeIcon icon={faSquareXmark} />
+              </button>
               {isEditing.isEdit && isEditing.id === post.id
                 ? editPostComponent(post)
                 : postComponent(post)
