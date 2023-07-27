@@ -7,6 +7,13 @@ import { axiosInstance } from "../Api/Api.js"
 export const PostList = () => {
   const [posts, setPosts] = useState<IPost[]>([])
   const [isUpdated, setIsUpdated] = useState<Boolean>(false)
+  const [isEditing, setIsEditing] = useState<{
+    isEdit: Boolean,
+    id: number
+  }>({
+    isEdit: false,
+    id: 0
+  })
 
   useEffect(() => {
     getPosts()
@@ -41,6 +48,55 @@ export const PostList = () => {
     }
   }
 
+  const onEditSubmit = async (post:IPost) => {
+    try {
+      const response = await axiosInstance.put(`/api/v1/posts/${post.id}`, {
+        title: (document.getElementById('edit-title') as HTMLInputElement)?.value,
+        content: (document.getElementById('edit-content') as HTMLInputElement)?.value,
+        label: (document.getElementById('edit-label') as HTMLInputElement)?.value,
+      })
+      console.log(response)
+      getPosts()
+    } catch(error: any) {
+      console.log(error)
+    }
+    setIsEditing({
+      isEdit: false,
+      id: 0
+    })
+  }
+
+  const editPostComponent = (post:IPost) => {
+    const newList = posts.filter((post:IPost) => post.id !== isEditing.id)
+    return (
+      <div>
+        <h2>Edit Post</h2>
+        <label htmlFor="title">Title</label>
+        <input type="text" name="title" id="edit-title" defaultValue={post.title}/>
+
+        <label htmlFor="content">Content</label>
+        <input type="text" name="content" id="edit-content" defaultValue={post.content}/>
+
+        <label htmlFor="label">Label</label>
+        <input type="text" name="label" id="edit-label" defaultValue={post.label}/>
+        <button onClick={()=>onEditSubmit(post)}>Submit</button>
+      </div>
+    )
+  }
+
+  const postComponent = (post:IPost) => {
+    return (
+      <Post
+        key={post.id}
+        id={post.id}
+        title={post.title}
+        content={post.content}
+        label={post.label}
+        created_at={post.created_at}
+      />
+    )
+  }
+
   return(
     <>
       <div>
@@ -49,14 +105,16 @@ export const PostList = () => {
         {posts.map((post: IPost) => (
           <div>
             <button onClick={()=>handleDelete(post.id!)}>Delete</button>
-            <Post
-              key={post.id}
-              id={post.id}
-              title={post.title}
-              content={post.content}
-              label={post.label}
-              created_at={post.created_at}
-            />
+            <button onClick={()=>{setIsEditing(
+              {
+                isEdit: !isEditing.isEdit,
+                id: post.id!
+              }
+            )}}>Edit</button>
+            {isEditing.isEdit && isEditing.id === post.id
+              ? editPostComponent(post)
+              : postComponent(post)
+            }
           </div>
         ))}
       </div>
