@@ -104,21 +104,23 @@ export const PostList = () => {
         <h1>Post List</h1>
         <button onClick={()=>{setShowForm(!showForm)}}>Create New Post</button>
         {showForm && <PostForm updatePostList={updatePostList} />}
-        {posts.map((post: IPost) => (
-          <div>
-            <button onClick={()=>handleDelete(post.id!)}>Delete</button>
-            <button onClick={()=>{setIsEditing(
-              {
-                isEdit: !isEditing.isEdit,
-                id: post.id!
+        <div className="fixed-scroll">
+          {posts.map((post: IPost) => (
+            <div>
+              <button onClick={()=>handleDelete(post.id!)}>Delete</button>
+              <button onClick={()=>{setIsEditing(
+                {
+                  isEdit: !isEditing.isEdit,
+                  id: post.id!
+                }
+              )}}>Edit</button>
+              {isEditing.isEdit && isEditing.id === post.id
+                ? editPostComponent(post)
+                : postComponent(post)
               }
-            )}}>Edit</button>
-            {isEditing.isEdit && isEditing.id === post.id
-              ? editPostComponent(post)
-              : postComponent(post)
-            }
-          </div>
-        ))}
+            </div>
+          ))}
+        </div>
       </div>
     </>
   )
