@@ -17,3 +17,10 @@
 .post-form-foreground:focus-within{
   box-shadow: 1px 3px 6px 1px #80808066;
 }
+
+.post-button {
+  margin-left: 8px;
+  margin-right: 8px;
+  background: none;
+  border: none;
+}

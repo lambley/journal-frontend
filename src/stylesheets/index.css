@@ -1,4 +1,6 @@
 @import url('posts.css');
+@import url('forms.css');
+@import url('label.css');
 
 body {
   margin: 0;

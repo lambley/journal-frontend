@@ -2,13 +2,28 @@ import { IPost } from "../types/data";
 
 export const Post = (props: IPost) => {
 
+  const { title, content, label, created_at } = props
+
+
+  const colourLabels = (label: string) => {
+    if (label === "idea") {
+      return "post-label-idea"
+    } else if (label === "fun") {
+      return "post-label-fun"
+    } else if (label === "work") {
+      return "post-label-work"
+    } else {
+      return "post-label-life"
+    }
+  }
+
   return (
     <>
-      <h2>{props.title}</h2>
-      <p>{props.content}</p>
-      <small>{props.label}</small>
+      <h2>{props.id}. {title}</h2>
+      <p>{content}</p>
+      <small className={`post-label ${colourLabels(label)}`}>{label}</small>
       <hr />
-      <p>Created at {props.created_at.toString()}</p>
+      <p>Created at {created_at.toString()}</p>
     </>
   )
 }

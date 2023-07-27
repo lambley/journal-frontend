@@ -72,17 +72,27 @@ export const PostList = () => {
   const editPostComponent = (post:IPost) => {
     const newList = posts.filter((post:IPost) => post.id !== isEditing.id)
     return (
-      <div>
+      <div className="edit-post-form">
         <h2>Edit Post</h2>
-        <label htmlFor="title">Title</label>
-        <input type="text" name="title" id="edit-title" defaultValue={post.title}/>
+        <div className="post-form-group">
+          <label htmlFor="title">Title</label>
+          <input className="post-form-text-field" type="text" name="title" id="edit-title" defaultValue={post.title}/>
+        </div>
 
-        <label htmlFor="content">Content</label>
-        <input type="text" name="content" id="edit-content" defaultValue={post.content}/>
+        <div className="post-form-group">
+          <label htmlFor="content">Content</label>
+          <input className="post-form-text-field" type="text" name="content" id="edit-content" defaultValue={post.content}/>
+        </div>
 
-        <label htmlFor="label">Label</label>
-        <input type="text" name="label" id="edit-label" defaultValue={post.label}/>
-        <button onClick={()=>onEditSubmit(post)}>Submit</button>
+        <div className="post-form-group">
+          <label htmlFor="label">Label</label>
+          <input className="post-form-text-field" type="text" name="label" id="edit-label" defaultValue={post.label}/>
+        </div>
+
+        <button onClick={()=>onEditSubmit(post)}>
+          Submit
+        </button>
+        <hr />
       </div>
     )
   }
@@ -111,7 +121,7 @@ export const PostList = () => {
         <div className="fixed-scroll">
           {posts.map((post: IPost) => (
             <div>
-              <button onClick={()=>{setIsEditing(
+              <button className="post-button" onClick={()=>{setIsEditing(
                 {
                   isEdit: !isEditing.isEdit,
                   id: post.id!
@@ -120,7 +130,7 @@ export const PostList = () => {
               >
                 <FontAwesomeIcon icon={faSquarePen} />
               </button>
-              <button onClick={()=>handleDelete(post.id!)}>
+              <button className="post-button" onClick={()=>handleDelete(post.id!)}>
                 <FontAwesomeIcon icon={faSquareXmark} />
               </button>
               {isEditing.isEdit && isEditing.id === post.id
