@@ -179,18 +179,20 @@ export const PostList = () => {
         <div className="fixed-scroll container row">
           {posts.map((post: IPost) => (
             <Col sm={12} md={4} className="mb-3">
-              <button className="post-button" onClick={()=>{setIsEditing(
-                {
-                  isEdit: !isEditing.isEdit,
-                  id: post.id!
-                }
-                )}}
-              >
-                <FontAwesomeIcon icon={faSquarePen} />
-              </button>
-              <button className="post-button" onClick={()=>handleDelete(post.id!)}>
-                <FontAwesomeIcon icon={faSquareXmark} />
-              </button>
+              <div className="post-card-button-wrapper">
+                <button className="post-button post-button-edit" onClick={()=>{setIsEditing(
+                  {
+                    isEdit: !isEditing.isEdit,
+                    id: post.id!
+                  }
+                  )}}
+                >
+                  <FontAwesomeIcon icon={faSquarePen} />
+                </button>
+                <button className="post-button post-button-delete" onClick={()=>handleDelete(post.id!)}>
+                  <FontAwesomeIcon icon={faSquareXmark} />
+                </button>
+              </div>
               {isEditing.isEdit && isEditing.id === post.id
                 ? editPostComponent(post)
                 : postComponent(post)

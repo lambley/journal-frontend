@@ -21,12 +21,23 @@ export const Post = (props: IPost) => {
   };
 
   return (
-    <Card style={{ height: "180px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+    <Card style={{
+      height: "180px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      alignContent: "center",
+      padding: "16px",
+      flexWrap: "wrap",
+    }}>
       <Card.Body>
         <Card.Title>{props.id}. {title}</Card.Title>
         <Card.Text>{content}</Card.Text>
-        <span className={`post-label ${colourLabels(label)}`}>#{label}</span>
-        <div className="post-date"><i>Added on {created_at.toString().slice(0, 10)}</i></div>
+        <div className="post-card-bottom">
+          <span className={`post-label ${colourLabels(label)}`}>#{label}</span>
+          <div className="post-date"><i>Added on {created_at.toString().slice(0, 10)}</i></div>
+        </div>
       </Card.Body>
     </Card>
   );

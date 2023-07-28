@@ -13,6 +13,12 @@
   margin: .25em .1em
 }
 
+.post-label:hover {
+  background: var(--text-color);
+  color: var(--h-color);
+  cursor: pointer;
+}
+
 .post-label-idea {
   background: var(--blue);
   color: var(--h-color)
