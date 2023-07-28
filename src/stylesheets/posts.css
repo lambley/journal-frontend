@@ -58,9 +58,12 @@
 }
 
 .post-card-button-wrapper {
-  position: relative;
-  top: 30px;
+  display: flex;
   z-index: 1000;
+  flex-direction: row;
+  justify-content: space-between;
+  top: 30px;
+  position: relative;
 }
 
 .post-button {
@@ -72,11 +75,6 @@
 
 .post-button-edit:hover {
   color: #808080;
-}
-
-.post-button-delete {
-  position: relative;
-  left: 260px;
 }
 
 .post-button-delete:hover {

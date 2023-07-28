@@ -1,12 +1,12 @@
-import { useState, useEffect, useRef } from "react"
-import { Post } from "./Post"
-import { PostForm } from '../Components/PostForm'
-import { IPost } from "../types/data"
-import { axiosInstance } from "../Api/Api.js"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSquareXmark, faSquarePen } from '@fortawesome/free-solid-svg-icons'
-import { Col } from "react-bootstrap"
-import { throttle } from "lodash"
+import { useState, useEffect, useRef } from "react";
+import { Post } from "./Post";
+import { PostForm } from '../Components/PostForm';
+import { IPost } from "../types/data";
+import { axiosInstance } from "../Api/Api.js";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSquareXmark, faSquarePen } from '@fortawesome/free-solid-svg-icons';
+import { Col, Button, Form, Row, ButtonGroup } from "react-bootstrap";
+import { throttle } from "lodash";
 
 export const PostList = () => {
   const [originalPosts, setOriginalPosts] = useState<IPost[]>([]);
@@ -145,63 +145,83 @@ export const PostList = () => {
     )
   }
 
-  return(
+  return (
     <>
       <div>
         <h1>Post List</h1>
-        {/* Post Form */}
-        <button onClick={()=>{setShowForm(!showForm)}}>Create New Post</button>
-        <div className="post-form-foreground">
-          {showForm && <PostForm updatePostList={updatePostList} />}
-        </div>
-        {/* Sort and Filter Options */}
-        <div>
-          <label htmlFor="sort">Sort by:</label>
-          <select
-            id="sort"
-            value={sortOption}
-            onChange={(e) => {
-              setSortOption(e.target.value);
-              sortPosts(e.target.value);
-            }}
-          >
-            <option value="newest">Newest</option>
-            <option value="oldest">Oldest</option>
-          </select>
-          <label htmlFor="filter">Filter:</label>
-          <input
-            type="text"
-            id="filter"
-            value={filterText}
-            onChange={handleFilterChange}
-          />
-        </div>
+        {/* Post Form and Sort/Filter Options */}
+        <Row className="mb-3">
+          <Col xs={12} sm={6} md={4}>
+            <Button onClick={() => setShowForm(!showForm)}>Create New Post</Button>
+            <div className="post-form-foreground">
+              {showForm && <PostForm updatePostList={updatePostList} />}
+            </div>
+          </Col>
+          <Col xs={12} sm={6} md={4}>
+            <ButtonGroup>
+              <Row className="mb-3">
+                <Form.Label column xs={3}>Sort by:</Form.Label>
+                <Col xs={9}>
+                  <Form.Control
+                    as="select"
+                    value={sortOption}
+                    onChange={(e) => {
+                      setSortOption(e.target.value);
+                      sortPosts(e.target.value);
+                    }}
+                  >
+                    <option value="newest">Newest</option>
+                    <option value="oldest">Oldest</option>
+                  </Form.Control>
+                </Col>
+              </Row>
+              <Row>
+                <Form.Label column xs={3}>Search:</Form.Label>
+                <Col xs={9}>
+                  <Form.Control
+                    type="text"
+                    value={filterText}
+                    onChange={handleFilterChange}
+                  />
+                </Col>
+              </Row>
+            </ButtonGroup>
+          </Col>
+        </Row>
         {/* Post List */}
         <div className="fixed-scroll container row">
           {posts.map((post: IPost) => (
-            <Col sm={12} md={4} className="mb-3">
+            <Col sm={12} md={4} className="mb-3" key={post.id}>
               <div className="post-card-button-wrapper">
-                <button className="post-button post-button-edit" onClick={()=>{setIsEditing(
-                  {
-                    isEdit: !isEditing.isEdit,
-                    id: post.id!
+                {/* Edit Button (unchanged) */}
+                <button
+                  className="post-button post-button-edit"
+                  onClick={() =>
+                    setIsEditing({
+                      isEdit: !isEditing.isEdit,
+                      id: post.id!,
+                    })
                   }
-                  )}}
                 >
                   <FontAwesomeIcon icon={faSquarePen} />
                 </button>
-                <button className="post-button post-button-delete" onClick={()=>handleDelete(post.id!)}>
+                {/* Delete Button (unchanged) */}
+                <button
+                  className="post-button post-button-delete"
+                  onClick={() => handleDelete(post.id!)}
+                >
                   <FontAwesomeIcon icon={faSquareXmark} />
                 </button>
               </div>
-              {isEditing.isEdit && isEditing.id === post.id
-                ? editPostComponent(post)
-                : postComponent(post)
-              }
+              {isEditing.isEdit && isEditing.id === post.id ? (
+                editPostComponent(post)
+              ) : (
+                postComponent(post)
+              )}
             </Col>
           ))}
         </div>
       </div>
     </>
-  )
-}
+  );
+};
