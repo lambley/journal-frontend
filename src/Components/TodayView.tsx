@@ -39,8 +39,8 @@ export const TodayView = () => {
   }
 
   const postComponent = (post: IPost | undefined) => {
-    return (
-      post && (
+    if (post) {
+      return (
         <Post
           key={post.id}
           id={post.id}
@@ -49,8 +49,19 @@ export const TodayView = () => {
           label={post.label}
           created_at={post.created_at}
         />
-      )
-    );
+      );
+    } else {
+      return (
+        <Post
+          key={1}
+          id={0}
+          title={"No post for this day yet!"}
+          content={"No content yet!"}
+          label={"No label yet!"}
+          created_at={date}
+        />
+      );
+    }
   };
 
   return (
