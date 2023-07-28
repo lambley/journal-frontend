@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Post } from "./Post"
 import { PostForm } from '../Components/PostForm'
 import { IPost } from "../types/data"
@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquareXmark, faSquarePen } from '@fortawesome/free-solid-svg-icons'
 
 export const PostList = () => {
+  const [originalPosts, setOriginalPosts] = useState<IPost[]>([]);
   const [posts, setPosts] = useState<IPost[]>([])
   const [isUpdated, setIsUpdated] = useState<Boolean>(false)
   const [isEditing, setIsEditing] = useState<{
@@ -17,17 +18,46 @@ export const PostList = () => {
     id: 0
   })
   const [showForm, setShowForm] = useState<Boolean>(false)
+  const [sortOption, setSortOption] = useState<string>("newest");
+  const [filterText, setFilterText] = useState<string>("");
+  const isOriginalPostsSetRef = useRef(false);
 
   useEffect(() => {
     getPosts()
   }, [isUpdated])
+
+  useEffect(() => {
+    if (!isOriginalPostsSetRef.current && posts.length > 0) {
+      setOriginalPosts(posts);
+      isOriginalPostsSetRef.current = true;
+    }
+  }, [posts]);
+
+  const sortPosts = (option: string) => {
+    let sortedPosts = [...posts];
+    if (option === "newest") {
+      sortedPosts.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    } else if (option === "oldest") {
+      sortedPosts.sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+    }
+    setPosts(sortedPosts);
+  };
+
+  const filterPosts = (text: string) => {
+    const filteredPosts = originalPosts.filter((post) =>
+      post.content.toLowerCase().includes(text.toLowerCase())
+    );
+    setFilterText(text);
+    setPosts(text === "" ? originalPosts : filteredPosts);
+  };
+
 
   const getPosts = async () => {
     try {
       const res = await axiosInstance.get('/api/v1/posts')
       const data = res.data
 
-      setPosts(data.reverse())
+      setPosts(data)
     } catch(error: any) {
       console.log(error);
 
@@ -70,7 +100,6 @@ export const PostList = () => {
   }
 
   const editPostComponent = (post:IPost) => {
-    const newList = posts.filter((post:IPost) => post.id !== isEditing.id)
     return (
       <div className="edit-post-form">
         <h2>Edit Post</h2>
@@ -114,10 +143,38 @@ export const PostList = () => {
     <>
       <div>
         <h1>Post List</h1>
+        {/* Post Form */}
         <button onClick={()=>{setShowForm(!showForm)}}>Create New Post</button>
         <div className="post-form-foreground">
           {showForm && <PostForm updatePostList={updatePostList} />}
         </div>
+        {/* Sort and Filter Options */}
+        <div>
+          <label htmlFor="sort">Sort by:</label>
+          <select
+            id="sort"
+            value={sortOption}
+            onChange={(e) => {
+              setSortOption(e.target.value);
+              sortPosts(e.target.value);
+            }}
+          >
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+          </select>
+          <label htmlFor="filter">Filter:</label>
+          <input
+            type="text"
+            id="filter"
+            value={filterText}
+            onChange={(e) => {
+              console.log(e.target.value);
+              setFilterText(e.target.value);
+              filterPosts(e.target.value);
+            }}
+          />
+        </div>
+        {/* Post List */}
         <div className="fixed-scroll">
           {posts.map((post: IPost) => (
             <div>
