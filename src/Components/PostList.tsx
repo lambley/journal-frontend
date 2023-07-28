@@ -5,7 +5,8 @@ import { IPost } from "../types/data"
 import { axiosInstance } from "../Api/Api.js"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquareXmark, faSquarePen } from '@fortawesome/free-solid-svg-icons'
-import { Container, Row, Col } from "react-bootstrap"
+import { Col } from "react-bootstrap"
+import { throttle } from "lodash"
 
 export const PostList = () => {
   const [originalPosts, setOriginalPosts] = useState<IPost[]>([]);
@@ -44,14 +45,18 @@ export const PostList = () => {
     setPosts(sortedPosts);
   };
 
-  const filterPosts = (text: string) => {
+  const throttledFilterPosts = throttle((text: string) => {
     const filteredPosts = originalPosts.filter((post) =>
       post.content.toLowerCase().includes(text.toLowerCase())
     );
     setFilterText(text);
     setPosts(text === "" ? originalPosts : filteredPosts);
-  };
+  }, 300);
 
+  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const text = e.target.value;
+    throttledFilterPosts(text);
+  };
 
   const getPosts = async () => {
     try {
@@ -168,11 +173,7 @@ export const PostList = () => {
             type="text"
             id="filter"
             value={filterText}
-            onChange={(e) => {
-              console.log(e.target.value);
-              setFilterText(e.target.value);
-              filterPosts(e.target.value);
-            }}
+            onChange={handleFilterChange}
           />
         </div>
         {/* Post List */}
