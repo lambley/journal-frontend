@@ -1,3 +1,4 @@
+import { Button, ButtonGroup } from 'react-bootstrap';
 import { axiosInstance } from "../Api/Api";
 import { useState, useEffect } from "react";
 import { IPost } from "../types/data";
@@ -66,14 +67,16 @@ export const TodayView = () => {
 
   return (
     <div className="today-view">
-      <h1>Quote of the Day</h1>
+      <h1 className="today-view-header">Quote of the Day</h1>
       <div className="quote">
         {postComponent(post)}
       </div>
-      <div className="navigation-buttons">
-        <button onClick={handlePrevDay}>Previous Day</button>
-        <button onClick={handleToday}>Today</button>
-        <button onClick={handleNextDay}>Next Day</button>
+      <div className="navigation-buttons d-flex justify-content-center mt-3">
+        <ButtonGroup aria-label="Basic example">
+          <Button variant="secondary" onClick={handlePrevDay}>Previous Day</Button>
+          <Button variant="secondary" onClick={handleToday}>Today</Button>
+          <Button variant="secondary" onClick={handleNextDay}>Next Day</Button>
+        </ButtonGroup>
       </div>
     </div>
   );

@@ -19,7 +19,7 @@
 /* Note: The scrollbar-width property is supported in Firefox 64 and later versions */
 /* You may need to add vendor prefixes for older versions */
 .fixed-scroll {
-  scrollbar-width: thin; /* "thin" or "auto" for default scrollbars */
+  scrollbar-width: thin;
 }
 
 .fixed-scroll::-webkit-scrollbar {
@@ -32,7 +32,6 @@
   border-radius: 8px;
 }
 
-/* Additional styles for your .fixed-scroll class */
 .fixed-scroll {
   top: 290px;
   bottom: 0;
@@ -91,4 +90,16 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 8px;
+}
+
+.today-view {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.today-view-header {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 }
