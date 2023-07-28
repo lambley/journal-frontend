@@ -1,0 +1,19 @@
+.navbar-custom {
+  background-color: #343a40;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+.navbar-custom .nav-link {
+  color: #ffffff;
+  margin-right: 10px;
+  transition: color 0.3s;
+}
+
+.navbar-custom .nav-link:hover {
+  color: #ffc107;
+}
+
+.navbar-custom .active {
+  font-weight: bold;
+}
