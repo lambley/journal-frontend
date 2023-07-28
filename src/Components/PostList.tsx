@@ -26,6 +26,7 @@ export const PostList = () => {
 
   useEffect(() => {
     getPosts()
+    setIsUpdated(false)
   }, [isUpdated])
 
   useEffect(() => {
@@ -62,11 +63,12 @@ export const PostList = () => {
     try {
       const res = await axiosInstance.get('/api/v1/posts')
       const data = res.data
-
       setPosts(data)
     } catch(error: any) {
       console.log(error);
-
+    }
+    if (posts.length > 0) {
+      sortPosts(sortOption)
     }
   }
 
@@ -80,8 +82,10 @@ export const PostList = () => {
   const handleDelete = async (id:number) => {
     try {
       const response = await axiosInstance.delete(`/api/v1/posts/${id}`)
-      console.log(response)
-      getPosts()
+      const index = posts.indexOf(posts.find(post => post.id === id)!)
+      posts.splice(index, 1)
+      setIsUpdated(true)
+      sortPosts("newest")
     } catch(error: any) {
       console.log(error)
     }
