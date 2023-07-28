@@ -1,9 +1,5 @@
 import { IPost } from "../types/data";
 import Card from 'react-bootstrap/Card';
-import Badge from 'react-bootstrap/Badge';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 export const Post = (props: IPost) => {
   const { title, content, label, created_at } = props;
@@ -36,7 +32,7 @@ export const Post = (props: IPost) => {
         <Card.Text>{content}</Card.Text>
         <div className="post-card-bottom">
           <span className={`post-label ${colourLabels(label)}`}>#{label}</span>
-          <div className="post-date"><i>Added on {created_at.toString().slice(0, 10)}</i></div>
+          <div className="post-date"><i>Added on {created_at?.toString().slice(0, 10)}</i></div>
         </div>
       </Card.Body>
     </Card>

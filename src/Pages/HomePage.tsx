@@ -1,11 +1,12 @@
 import { MyCalendar } from "../Components/Calendar";
 import { PostList } from "../Components/PostList";
 import { YearOverviewChart } from "../Components/YearOverviewChart";
+import { TodayView } from "../Components/TodayView";
 import { useState } from "react";
-import { ButtonGroup, Button, Tab, Tabs } from "react-bootstrap";
+import { ButtonGroup, Button, Tab } from "react-bootstrap";
 
 export const HomePage = () => {
-  const [activeView, setActiveView] = useState("PostList");
+  const [activeView, setActiveView] = useState("TodayView");
 
   const handleViewClick = (view:string) => {
     setActiveView(view);
@@ -14,6 +15,15 @@ export const HomePage = () => {
   return (
     <div className="home-page">
       <ButtonGroup aria-label="Basic example">
+        <Button
+          variant="secondary"
+          onClick={() => {
+            handleViewClick("TodayView");
+          }}
+          active={activeView === "TodayView"}
+        >
+          Today
+        </Button>
         <Button
           variant="secondary"
           onClick={() => {
@@ -44,6 +54,9 @@ export const HomePage = () => {
       </ButtonGroup>
       <Tab.Container activeKey={activeView}>
         <Tab.Content>
+          <Tab.Pane eventKey="TodayView">
+            <TodayView />
+          </Tab.Pane>
           <Tab.Pane eventKey="PostList">
             <PostList />
           </Tab.Pane>
