@@ -26,7 +26,6 @@ export const PostList = () => {
 
   useEffect(() => {
     getPosts()
-    setIsUpdated(false)
   }, [isUpdated])
 
   useEffect(() => {
@@ -35,6 +34,12 @@ export const PostList = () => {
       isOriginalPostsSetRef.current = true;
     }
   }, [posts]);
+
+  useEffect(() => {
+    if (originalPosts.length > 0) {
+      sortPosts(sortOption);
+    }
+  }, [originalPosts]);
 
   const sortPosts = (option: string) => {
     let sortedPosts = [...posts];
@@ -91,7 +96,16 @@ export const PostList = () => {
     }
   }
 
+  const updatePost = (originalPost: IPost) => {
+    const index = posts.indexOf(posts.find(post => post.id === originalPost.id)!)
+
+    posts[index].title = (document.getElementById('edit-title') as HTMLInputElement)?.value
+    posts[index].content = (document.getElementById('edit-content') as HTMLInputElement)?.value
+    posts[index].label = (document.getElementById('edit-label') as HTMLInputElement)?.value
+  }
+
   const onEditSubmit = async (post:IPost) => {
+    updatePost(post)
     try {
       const response = await axiosInstance.put(`/api/v1/posts/${post.id}`, {
         title: (document.getElementById('edit-title') as HTMLInputElement)?.value,
@@ -100,6 +114,7 @@ export const PostList = () => {
       })
       console.log(response)
       getPosts()
+      sortPosts(sortOption)
     } catch(error: any) {
       console.log(error)
     }
