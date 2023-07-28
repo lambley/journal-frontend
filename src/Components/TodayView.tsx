@@ -42,14 +42,7 @@ export const TodayView = () => {
   const postComponent = (post: IPost | undefined) => {
     if (post) {
       return (
-        <Post
-          key={post.id}
-          id={post.id}
-          title={post.title}
-          content={post.content}
-          label={post.label}
-          created_at={post.created_at}
-        />
+        <Post {...post} />
       );
     } else {
       return (

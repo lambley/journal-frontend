@@ -153,14 +153,7 @@ export const PostList = () => {
 
   const postComponent = (post:IPost) => {
     return (
-      <Post
-        key={post.id}
-        id={post.id}
-        title={post.title}
-        content={post.content}
-        label={post.label}
-        created_at={post.created_at}
-      />
+      <Post {...post} />
     )
   }
 
