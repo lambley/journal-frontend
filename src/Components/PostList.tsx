@@ -5,6 +5,7 @@ import { IPost } from "../types/data"
 import { axiosInstance } from "../Api/Api.js"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquareXmark, faSquarePen } from '@fortawesome/free-solid-svg-icons'
+import { Container, Row, Col } from "react-bootstrap"
 
 export const PostList = () => {
   const [originalPosts, setOriginalPosts] = useState<IPost[]>([]);
@@ -175,9 +176,9 @@ export const PostList = () => {
           />
         </div>
         {/* Post List */}
-        <div className="fixed-scroll">
+        <div className="fixed-scroll container row">
           {posts.map((post: IPost) => (
-            <div>
+            <Col sm={12} md={4} className="mb-3">
               <button className="post-button" onClick={()=>{setIsEditing(
                 {
                   isEdit: !isEditing.isEdit,
@@ -194,7 +195,7 @@ export const PostList = () => {
                 ? editPostComponent(post)
                 : postComponent(post)
               }
-            </div>
+            </Col>
           ))}
         </div>
       </div>
