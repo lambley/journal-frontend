@@ -124,9 +124,9 @@ export const PostList = () => {
           <input className="post-form-text-field" type="text" name="label" id="edit-label" defaultValue={post.label}/>
         </div>
 
-        <button onClick={()=>onEditSubmit(post)}>
+        <Button variant="primary" onClick={()=>onEditSubmit(post)}>
           Submit
-        </button>
+        </Button>
         <hr />
       </div>
     )
