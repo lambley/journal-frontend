@@ -6,13 +6,16 @@
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/bootstrap": "^5.2.6",
     "@types/node": "^16.18.39",
     "@types/react": "^18.2.16",
     "@types/react-dom": "^18.2.7",
     "axios": "^1.4.0",
+    "axios-mock-adapter": "^1.21.5",
     "bootstrap": "^5.3.1",
+    "jest-environment-jsdom": "^29.6.2",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
@@ -27,7 +30,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --watchAll --verbose",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -49,10 +52,14 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.22.9",
+    "@babel/preset-react": "^7.22.5",
+    "@babel/preset-typescript": "^7.22.5",
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^14.0.0",
     "@types/jest": "^29.5.3",
+    "dotenv": "^16.3.1",
     "jest": "^29.6.2",
+    "jsdom": "^22.1.0",
     "react-testing-library": "^8.0.1",
     "ts-jest": "^29.1.1"
   }
