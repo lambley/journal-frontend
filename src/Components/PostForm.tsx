@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 
 export const PostForm = (props: { updatePostList: (post: IPost) => void }) => {
+  const [serverError, setServerError] = useState<string>("")
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [label, setLabel] = useState<string>("");
@@ -29,6 +30,7 @@ export const PostForm = (props: { updatePostList: (post: IPost) => void }) => {
       props.updatePostList(response.data);
     } catch (error: any) {
       console.log(error);
+      setServerError(error.message || "Server error occurred.");
     }
   };
 
@@ -36,9 +38,10 @@ export const PostForm = (props: { updatePostList: (post: IPost) => void }) => {
     <Form onSubmit={handleSubmit(onSubmit)} className="edit-post-form" style={{width: '50%'}}>
       <h2 style={{ marginBottom: "20px" }}>Create New Post</h2>
       <Form.Group className="post-form-group">
-        <Form.Label>Title</Form.Label>
+        <Form.Label htmlFor="post-form-title">Title</Form.Label>
         <Form.Control
           {...register("title", { required: true })}
+          id="post-form-title"
           type="text"
           name="title"
           onChange={(e) => setTitle(e.target.value)}
@@ -48,9 +51,10 @@ export const PostForm = (props: { updatePostList: (post: IPost) => void }) => {
       </Form.Group>
 
       <Form.Group className="post-form-group">
-        <Form.Label>Content</Form.Label>
+        <Form.Label htmlFor="post-form-content">Content</Form.Label>
         <Form.Control
           {...register("content", { required: true })}
+          id="post-form-content"
           type="text"
           name="content"
           onChange={(e) => setContent(e.target.value)}
@@ -60,9 +64,10 @@ export const PostForm = (props: { updatePostList: (post: IPost) => void }) => {
       </Form.Group>
 
       <Form.Group className="post-form-group">
-        <Form.Label>Label</Form.Label>
+        <Form.Label htmlFor="post-form-label">Label</Form.Label>
         <Form.Control
           {...register("label", { required: true })}
+          id="post-form-label"
           type="text"
           name="label"
           onChange={(e) => setLabel(e.target.value)}
@@ -71,6 +76,7 @@ export const PostForm = (props: { updatePostList: (post: IPost) => void }) => {
         {errors?.label?.type === "required" && <p>This field is required</p>}
       </Form.Group>
 
+      {serverError && <p style={{ color: "red" }}>{serverError}</p>}
       <Button variant="primary" type="submit">
         Submit
       </Button>

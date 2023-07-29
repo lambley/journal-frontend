@@ -1,3 +1,4 @@
+import React from "react";
 import { IPost } from "../types/data";
 import Card from 'react-bootstrap/Card';
 
