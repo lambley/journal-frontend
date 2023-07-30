@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { PostList } from '../PostList';
-import exp from 'constants';
 
 jest.mock("../../Api/Api.js", () => ({
   axiosInstance: {
@@ -52,5 +51,50 @@ describe('PostList', () => {
     await waitFor(() => {
       expect(formHeading).not.toBeInTheDocument();
     });
+  });
+
+  // Edit test
+
+  // Delete test
+
+  test('changing the sort option should re-render the post list', async () => {
+    render(<PostList />);
+    const sortSelect = screen.getByLabelText('Sort by:');
+
+    fireEvent.change(sortSelect, { target: { value: 'oldest' } });
+    await waitFor(() => {
+      const postTitles = screen.getAllByText(/Test Post/);
+      expect(postTitles[0]).toBeInTheDocument();
+    });
+
+    fireEvent.change(sortSelect, { target: { value: 'newest' } });
+    await waitFor(() => {
+      const postTitles = screen.getAllByText(/Test Post/);
+      expect(postTitles[0]).toBeInTheDocument();
+    });
+  });
+
+  test('filtering the post list by search input', async () => {
+    render(<PostList />);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Test Post/i)).toBeInTheDocument();
+    });
+
+    const searchInput = screen.getByLabelText('Search');
+
+    fireEvent.change(searchInput, { target: { value: 'Test' } });
+
+    await waitFor(() => {
+      const filteredPosts = screen.getAllByText(/Test Post/i);
+      expect(filteredPosts[0]).toBeInTheDocument();
+    }, { timeout: 500 });
+
+    fireEvent.change(searchInput, { target: { value: '' } });
+
+    await waitFor(() => {
+      const allPosts = screen.queryAllByText(/Test Post/i);
+      expect(allPosts[0]).toBeInTheDocument()
+    }, { timeout: 500 });
   });
 });
