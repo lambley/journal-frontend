@@ -177,6 +177,7 @@ export const PostList = () => {
                   <Form.Control
                     as="select"
                     value={sortOption}
+                    aria-label="Sort by:"
                     onChange={(e) => {
                       setSortOption(e.target.value);
                       sortPosts(e.target.value);
@@ -193,6 +194,7 @@ export const PostList = () => {
                   <Form.Control
                     type="text"
                     value={filterText}
+                    aria-label="Search"
                     onChange={handleFilterChange}
                   />
                 </Col>
@@ -208,6 +210,7 @@ export const PostList = () => {
                 {/* Edit Button (unchanged) */}
                 <button
                   className="post-button post-button-edit"
+                  aria-label="Edit Post"
                   onClick={() =>
                     setIsEditing({
                       isEdit: !isEditing.isEdit,
@@ -220,6 +223,7 @@ export const PostList = () => {
                 {/* Delete Button (unchanged) */}
                 <button
                   className="post-button post-button-delete"
+                  aria-label="Delete Post"
                   onClick={() => handleDelete(post.id!)}
                 >
                   <FontAwesomeIcon icon={faSquareXmark} />
