@@ -2,6 +2,7 @@ import { Routes, Route, Link } from 'react-router-dom'
 import { HomePage } from './Pages/HomePage';
 import { NotFoundPage } from './Pages/NotFoundPage';
 import { AboutPage } from './Pages/AboutPage';
+import { LabelPage } from './Pages/LabelPage';
 import { Container, Navbar } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
@@ -27,6 +28,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="label/:label" element={<LabelPage/>} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Container>

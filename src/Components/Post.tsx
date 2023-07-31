@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import { IPost } from "../types/data";
-import Card from 'react-bootstrap/Card';
+import { Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuoteLeft, faQuoteRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -40,7 +41,9 @@ export const Post = (props: IPost) => {
           <FontAwesomeIcon icon={faQuoteRight} style={{ marginRight: "8px" }} />
         </div>
         <div className="post-card-bottom">
-          <span className={`post-label ${colourLabels(label)}`}>#{label}</span>
+          <Link to={`/label/${label}`} className={`link post-label ${colourLabels(label)}`}>
+            #{label}
+          </Link>
           <div className="post-date"><i>Added on {created_at?.toString().slice(0, 10)}</i></div>
         </div>
       </Card.Body>
