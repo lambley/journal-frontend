@@ -5,7 +5,7 @@ import { IPost } from "../types/data";
 import { axiosInstance } from "../Api/Api.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareXmark, faSquarePen } from '@fortawesome/free-solid-svg-icons';
-import { Col, Button, Form, Row, ButtonGroup } from "react-bootstrap";
+import { Col, Button, Form, Row, ButtonGroup, Alert } from "react-bootstrap";
 import { throttle } from "lodash";
 
 export const PostList = () => {
@@ -23,6 +23,7 @@ export const PostList = () => {
   const [sortOption, setSortOption] = useState<string>("newest");
   const [filterText, setFilterText] = useState<string>("");
   const isOriginalPostsSetRef = useRef(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   useEffect(() => {
     getPosts()
@@ -82,6 +83,14 @@ export const PostList = () => {
     newPosts.unshift(post)
     setPosts(newPosts)
     setIsUpdated(true)
+    // show a confirmation message and display message for 3secs
+    if (showForm) {
+      setShowForm(false);
+    }
+    setShowConfirmation(true);
+    setTimeout(() => {
+      setShowConfirmation(false);
+    }, 3000);
   }
 
   const handleDelete = async (id:number) => {
@@ -159,10 +168,15 @@ export const PostList = () => {
 
   return (
     <>
-      <div>
-        <h1>Post List</h1>
+      <div className="mt-3">
+        {showConfirmation && (
+            <Alert variant="success" className="mt-2">
+              Post has been created!
+            </Alert>
+            )
+        }
         {/* Post Form and Sort/Filter Options */}
-        <Row className="mb-3">
+        <Row>
           <Col xs={12} sm={6} md={4}>
             <Button onClick={() => setShowForm(!showForm)}>Create New Post</Button>
             <div className="post-form-foreground">
