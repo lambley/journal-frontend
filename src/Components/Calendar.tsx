@@ -117,7 +117,7 @@ export const MyCalendar = () => {
   // Colour slider functions
   const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value);
-    const clampedValue = Math.min(Math.max(value, 0), 250);
+    const clampedValue = Math.min(Math.max(value, 30), 100);
     setBaseColour(clampedValue);
   };
 
@@ -125,7 +125,7 @@ export const MyCalendar = () => {
     event.preventDefault();
     const delta = event.deltaY > 0 ? -10 : 10;
     const newValue = baseColour + delta;
-    const clampedValue = Math.min(Math.max(newValue, 0), 250);
+    const clampedValue = Math.min(Math.max(newValue, 30), 100);
     requestAnimationFrame(() => setBaseColour(clampedValue));
   };
 
@@ -145,7 +145,7 @@ export const MyCalendar = () => {
       <h3>Colour Ranges:</h3>
       <Form.Label>Hue: {baseColour}</Form.Label>
       <Form.Range
-        min={0}
+        min={30}
         max={100}
         value={baseColour}
         onChange={handleSliderChange}
