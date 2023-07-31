@@ -1,4 +1,4 @@
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { Button, ButtonGroup, Container, Row, Col } from 'react-bootstrap';
 import { axiosInstance } from "../Api/Api";
 import { useState, useEffect } from "react";
 import { IPost } from "../types/data";
@@ -60,32 +60,39 @@ export const TodayView = () => {
   };
 
   return (
-    <div className="today-view">
+    <Container className="today-view">
       <h1 className="today-view-header">Quote of the Day</h1>
-      <div className="quote">
-        {postComponent(post)}
-      </div>
-      <div className="navigation-buttons d-flex justify-content-center mt-3">
-        <ButtonGroup aria-label="Basic example">
-          <Button
-            variant="secondary"
-            onClick={handlePrevDay}
-          >
-            Previous Day
-          </Button>
-          <Button
-            variant={moment(date).isSame(moment(), 'day') ? "secondary active" : "secondary"}
-          >
-            Today
-          </Button>
-          <Button
-            variant="secondary"
-            onClick={handleNextDay}
-          >
-            Next Day
-          </Button>
-        </ButtonGroup>
-      </div>
-    </div>
+      <Row>
+        <Col xs={12} md={10} lg={8} className="mx-auto">
+          <div className="quote">
+            {postComponent(post)}
+          </div>
+        </Col>
+      </Row>
+      <Row className="mt-3">
+        <Col xs={12} md={10} lg={8} className="mx-auto">
+          <ButtonGroup className="d-flex justify-content-center" aria-label="Basic example">
+            <Button
+              variant="secondary"
+              onClick={handlePrevDay}
+            >
+              Previous Day
+            </Button>
+            <Button
+              variant={moment(date).isSame(moment(), 'day') ? "secondary active" : "secondary"}
+              onClick={handleToday}
+            >
+              Today
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={handleNextDay}
+            >
+              Next Day
+            </Button>
+          </ButtonGroup>
+        </Col>
+      </Row>
+    </Container>
   );
 };
