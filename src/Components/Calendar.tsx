@@ -129,6 +129,7 @@ export const MyCalendar = () => {
     return (
     <div className='mb-3'>
       <h3>Color Ranges:</h3>
+      <Form.Label>Hue: {baseColor}</Form.Label>
       <Form.Range
         min={0}
         max={100}
