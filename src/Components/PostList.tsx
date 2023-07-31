@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { Post } from "./Post";
 import { PostForm } from '../Components/PostForm';
+import { DeleteConfirmationModal } from "../Components/DeleteConfirmationModal";
 import { IPost } from "../types/data";
 import { axiosInstance } from "../Api/Api.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareXmark, faSquarePen } from '@fortawesome/free-solid-svg-icons';
-import { Col, Button, Form, Row, ButtonGroup, Alert } from "react-bootstrap";
+import { Col, Button, Form, Row, ButtonGroup, Alert, Modal } from "react-bootstrap";
 import { throttle } from "lodash";
 
 export const PostList = () => {
@@ -24,6 +25,8 @@ export const PostList = () => {
   const [filterText, setFilterText] = useState<string>("");
   const isOriginalPostsSetRef = useRef(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [deletePostId, setDeletePostId] = useState<number | null>(null);
 
   useEffect(() => {
     getPosts()
@@ -93,18 +96,6 @@ export const PostList = () => {
     }, 3000);
   }
 
-  const handleDelete = async (id:number) => {
-    try {
-      const response = await axiosInstance.delete(`/api/v1/posts/${id}`)
-      const index = posts.indexOf(posts.find(post => post.id === id)!)
-      posts.splice(index, 1)
-      setIsUpdated(true)
-      sortPosts("newest")
-    } catch(error: any) {
-      console.log(error)
-    }
-  }
-
   const updatePost = (originalPost: IPost) => {
     const index = posts.indexOf(posts.find(post => post.id === originalPost.id)!)
 
@@ -113,6 +104,37 @@ export const PostList = () => {
     posts[index].label = (document.getElementById('edit-label') as HTMLInputElement)?.value
   }
 
+  // delete functions
+  const handleDelete = async (id: number) => {
+    setDeletePostId(id);
+    setShowDeleteConfirmation(true);
+  };
+  
+  const handleConfirmDelete = async () => {
+    if (deletePostId) {
+      try {
+        const response = await axiosInstance.delete(`/api/v1/posts/${deletePostId}`);
+        const index = posts.findIndex((post) => post.id === deletePostId);
+        if (index !== -1) {
+          const newPosts = [...posts];
+          newPosts.splice(index, 1);
+          setPosts(newPosts);
+        }
+        setIsUpdated(true);
+        sortPosts("newest");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    setShowDeleteConfirmation(false);
+  };
+
+  const handleCancelDelete = () => {
+    setDeletePostId(null);
+    setShowDeleteConfirmation(false);
+  };
+
+  // edit functions
   const onEditSubmit = async (post:IPost) => {
     updatePost(post)
     try {
@@ -160,6 +182,7 @@ export const PostList = () => {
     )
   }
 
+  // post functions
   const postComponent = (post:IPost) => {
     return (
       <Post {...post} />
@@ -252,6 +275,11 @@ export const PostList = () => {
           ))}
         </div>
       </div>
+      <DeleteConfirmationModal
+        show={showDeleteConfirmation}
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCancelDelete}
+      />
     </>
   );
 };
