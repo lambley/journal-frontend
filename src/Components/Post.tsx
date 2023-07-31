@@ -1,6 +1,8 @@
 import React from "react";
 import { IPost } from "../types/data";
 import Card from 'react-bootstrap/Card';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faQuoteLeft, faQuoteRight } from '@fortawesome/free-solid-svg-icons';
 
 export const Post = (props: IPost) => {
   const { title, content, label, created_at } = props;
@@ -29,8 +31,14 @@ export const Post = (props: IPost) => {
       flexWrap: "wrap",
     }}>
       <Card.Body>
-        <Card.Title>{props.id}. {title}</Card.Title>
-        <Card.Text>{content}</Card.Text>
+        <div className="post-quote-left">
+          <FontAwesomeIcon icon={faQuoteLeft} style={{ marginRight: "8px" }} />
+          <Card.Title>{props.id}. {title}</Card.Title>
+        </div>
+        <div className="post-quote-right">
+          <Card.Text>{content}</Card.Text>
+          <FontAwesomeIcon icon={faQuoteRight} style={{ marginRight: "8px" }} />
+        </div>
         <div className="post-card-bottom">
           <span className={`post-label ${colourLabels(label)}`}>#{label}</span>
           <div className="post-date"><i>Added on {created_at?.toString().slice(0, 10)}</i></div>

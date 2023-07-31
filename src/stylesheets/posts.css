@@ -55,6 +55,17 @@
   box-shadow: 1px 3px 6px 1px #80808066;
 }
 
+.post-card {
+  height: "180px";
+  display: "flex";
+  flex-direction: "column";
+  justify-content: "center";
+  align-items: "center";
+  align-content: "center";
+  padding: "16px";
+  flex-wrap: "wrap";
+}
+
 .post-card-button-wrapper {
   display: flex;
   z-index: 1000;
@@ -102,4 +113,24 @@
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
+}
+
+.post-quote-left {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.post-quote-left, .post-quote-right {
+  display: flex;
+  align-items: center;
+}
+
+.post-quote-left {
+  margin-bottom: 8px;
+}
+
+.post-quote-right {
+  margin-top: 8px;
+  padding-right: 4px;
 }
