@@ -43,7 +43,7 @@ export const HomePage = () => {
           >
             Calendar
           </Button>
-          <Button
+          {/* <Button
             variant="secondary"
             onClick={() => {
               handleViewClick("YearOverviewChart");
@@ -51,7 +51,7 @@ export const HomePage = () => {
             active={activeView === "YearOverviewChart"}
           >
             Year
-          </Button>
+          </Button> */}
         </ButtonGroup>
       </div>
       <Tab.Container activeKey={activeView}>
