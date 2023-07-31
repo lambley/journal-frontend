@@ -1,7 +1,63 @@
 .calendar-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin: 0 auto;
+}
+
+.calendar-container .react-calendar {
+  max-width: 100%;
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.calendar-container .react-calendar__navigation {
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 10px 10px 0 0;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.calendar-container .react-calendar__navigation button {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.calendar-container .react-calendar__navigation button:enabled:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.calendar-container .react-calendar__navigation button:enabled:active {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.calendar-container .react-calendar__navigation button:disabled {
+  color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+}
+
+.calendar-container .react-calendar__navigation button:disabled:hover {
+  background-color: transparent;
+}
+
+.calendar-container .react-calendar__viewContainer {
+  border-radius: 0 0 10px 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-tile {
+  /* Customize the calendar tile appearance */
 }

@@ -182,6 +182,7 @@ export const MyCalendar = () => {
             const backgroundColor = getTileColour(date);
             return (
               <div
+                className="calendar-tile"
                 style={{
                   backgroundColor,
                   borderRadius: '8px',
