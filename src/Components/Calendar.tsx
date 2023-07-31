@@ -140,9 +140,9 @@ export const MyCalendar = () => {
           }}
         />
       </div>
-      <div>
+      {/* <div>
         Selected Date {value!.toLocaleString('uk').split(', ')[0] || 'No date selected'}
-      </div>
+      </div> */}
       <Post {...post} />
     </div>
   );
