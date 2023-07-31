@@ -11,7 +11,7 @@ export const LabelPage:React.FC = () => {
 
   useEffect(() => {
     getPosts(label)
-  }, [])
+  }, [label])
 
   const getPosts = async (label: string) => {
     const response = await axiosInstance.get("/api/v1/posts/label=" + label);
@@ -20,16 +20,20 @@ export const LabelPage:React.FC = () => {
 
   return (
     <div>
-      <h1 className='text-center'> 
+      <h1 className='text-center'>
         <span className={`label-page-heading post-label-${label}`}>#{label}</span> Quotes
       </h1>
-      <Row xs={1} md={3} className="g-4 mt-3">
-        {posts.map((post: IPost) => (
-          <Col key={post.id}>
-            <Post {...post} />
-          </Col>
-        ))}
-      </Row>
+      {posts.length === 0 ? (
+        <p className="text-center mt-3">No posts found</p>
+      ) : (
+        <Row xs={1} md={3} className="g-4 mt-3">
+          {posts.map((post: IPost) => (
+            <Col key={post.id}>
+              <Post {...post} />
+            </Col>
+          ))}
+        </Row>
+      )}
     </div>
   )
 }
