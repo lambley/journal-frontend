@@ -3,10 +3,11 @@ import { axiosInstance } from "../Api/Api";
 import { useState, useEffect } from "react";
 import { IPost } from "../types/data";
 import { Post } from "./Post";
+import moment from 'moment';
 
 export const TodayView = () => {
   const [post, setPost] = useState<IPost>();
-  const [date, setDate] = useState<Date>(new Date);
+  const [date, setDate] = useState<Date>(new Date());
 
   useEffect(() => {
     getQuote(date.toISOString());
@@ -66,9 +67,23 @@ export const TodayView = () => {
       </div>
       <div className="navigation-buttons d-flex justify-content-center mt-3">
         <ButtonGroup aria-label="Basic example">
-          <Button variant="secondary" onClick={handlePrevDay}>Previous Day</Button>
-          <Button variant="secondary" onClick={handleToday}>Today</Button>
-          <Button variant="secondary" onClick={handleNextDay}>Next Day</Button>
+          <Button
+            variant="secondary"
+            onClick={handlePrevDay}
+          >
+            Previous Day
+          </Button>
+          <Button
+            variant={moment(date).isSame(moment(), 'day') ? "secondary active" : "secondary"}
+          >
+            Today
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={handleNextDay}
+          >
+            Next Day
+          </Button>
         </ButtonGroup>
       </div>
     </div>
