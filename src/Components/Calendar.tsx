@@ -24,7 +24,7 @@ export const MyCalendar = () => {
     }
   );
   const [activeView, setActiveView] = useState<string>('Length');
-  const [baseColor, setBaseColor] = useState<number>(60);
+  const [baseColor, setBaseColour] = useState<number>(60);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -114,9 +114,19 @@ export const MyCalendar = () => {
     return 'transparent';
   };
 
+  // Colour slider functions
   const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value);
-    setBaseColor(value);
+    setBaseColour(value);
+  };
+
+  const handleSliderWheel = (event: React.WheelEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const delta = event.deltaY > 0 ? -1 : 1;
+    const newValue = baseColor + delta;
+    if (newValue >= 0 && newValue <= 100) {
+      setBaseColour(newValue);
+    }
   };
 
   const getBackgroundColor = (normalizedLength: number) => {
@@ -125,6 +135,7 @@ export const MyCalendar = () => {
     return backgroundColor;
   };
 
+  // view components
   const lengthView = () => {
     return (
     <div className='mb-3'>
@@ -135,6 +146,7 @@ export const MyCalendar = () => {
         max={100}
         value={baseColor}
         onChange={handleSliderChange}
+        onWheel={handleSliderWheel}
       />
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <div style={{ width: '20px', height: '20px', backgroundColor: 'hsl(60, 75%, 75%)' }}></div>
