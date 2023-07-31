@@ -24,7 +24,7 @@ export const MyCalendar = () => {
     }
   );
   const [activeView, setActiveView] = useState<string>('Length');
-  const [baseColor, setBaseColour] = useState<number>(60);
+  const [baseColour, setBaseColour] = useState<number>(60);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -90,8 +90,8 @@ export const MyCalendar = () => {
 
         const normalizedLength = (contentLength - minContentLength) / (maxContentLength - minContentLength);
 
-        const backgroundColor = getBackgroundColor(normalizedLength);
-        return backgroundColor;
+        const backgroundColour = getBackgroundColour(normalizedLength);
+        return backgroundColour;
       }
       else if (postContent && activeView === 'Label') {
         const label = postForDate.label;
@@ -117,43 +117,46 @@ export const MyCalendar = () => {
   // Colour slider functions
   const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value);
-    setBaseColour(value);
+    const clampedValue = Math.min(Math.max(value, 0), 250);
+    setBaseColour(clampedValue);
   };
 
-  const handleSliderWheel = (event: React.WheelEvent<HTMLInputElement>) => {
+  const handleSliderWheelRAF = (event: React.WheelEvent<HTMLInputElement>) => {
     event.preventDefault();
-    const delta = event.deltaY > 0 ? -1 : 1;
-    const newValue = baseColor + delta;
-    if (newValue >= 0 && newValue <= 100) {
-      setBaseColour(newValue);
-    }
+    const delta = event.deltaY > 0 ? -10 : 10;
+    const newValue = baseColour + delta;
+    const clampedValue = Math.min(Math.max(newValue, 0), 250);
+    requestAnimationFrame(() => setBaseColour(clampedValue));
   };
 
-  const getBackgroundColor = (normalizedLength: number) => {
-    const hue = baseColor - normalizedLength * baseColor;
-    const backgroundColor = `hsl(${hue}, 75%, 75%)`;
-    return backgroundColor;
+  const getBackgroundColour = (normalizedLength: number) => {
+    const hue = baseColour - normalizedLength * baseColour;
+    const backgroundColour = `hsl(${hue}, 75%, 75%)`;
+    return backgroundColour;
   };
 
   // view components
   const lengthView = () => {
+    const lowerColour = `hsl(${baseColour}, 75%, 75%)`;
+    const maxColour = `hsl(${baseColour - 60}, 75%, 75%)`;
+
     return (
     <div className='mb-3'>
-      <h3>Color Ranges:</h3>
-      <Form.Label>Hue: {baseColor}</Form.Label>
+      <h3>Colour Ranges:</h3>
+      <Form.Label>Hue: {baseColour}</Form.Label>
       <Form.Range
         min={0}
         max={100}
-        value={baseColor}
+        value={baseColour}
         onChange={handleSliderChange}
-        onWheel={handleSliderWheel}
+        onWheel={handleSliderWheelRAF}
       />
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <div style={{ width: '20px', height: '20px', backgroundColor: 'hsl(60, 75%, 75%)' }}></div>
+        <div style={{ width: '20px', height: '20px', backgroundColor: lowerColour }}></div>
         <span style={{ marginLeft: '8px' }}>Lower Post Length</span>
       </div>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <div style={{ width: '20px', height: '20px', backgroundColor: 'hsl(0, 75%, 75%)' }}></div>
+        <div style={{ width: '20px', height: '20px', backgroundColor: maxColour }}></div>
         <span style={{ marginLeft: '8px' }}>Max Post Length</span>
       </div>
     </div>
