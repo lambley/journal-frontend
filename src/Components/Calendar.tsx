@@ -5,7 +5,7 @@ import { axiosInstance } from "../Api/Api.js"
 import { IPost } from '../types/data.js';
 import moment, { Moment } from 'moment';
 import { Post } from './Post';
-import { ButtonGroup, Button } from 'react-bootstrap';
+import { ButtonGroup, Button, Form } from 'react-bootstrap';
 
 type ValuePiece = Date | null;
 
@@ -24,6 +24,7 @@ export const MyCalendar = () => {
     }
   );
   const [activeView, setActiveView] = useState<string>('Length');
+  const [baseColor, setBaseColor] = useState<number>(60);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -89,10 +90,7 @@ export const MyCalendar = () => {
 
         const normalizedLength = (contentLength - minContentLength) / (maxContentLength - minContentLength);
 
-        const hue = 60 - normalizedLength * 60;
-
-        const backgroundColor = `hsl(${hue}, 75%, 75%)`;
-
+        const backgroundColor = getBackgroundColor(normalizedLength);
         return backgroundColor;
       }
       else if (postContent && activeView === 'Label') {
@@ -116,10 +114,27 @@ export const MyCalendar = () => {
     return 'transparent';
   };
 
+  const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(event.target.value);
+    setBaseColor(value);
+  };
+
+  const getBackgroundColor = (normalizedLength: number) => {
+    const hue = baseColor - normalizedLength * baseColor;
+    const backgroundColor = `hsl(${hue}, 75%, 75%)`;
+    return backgroundColor;
+  };
+
   const lengthView = () => {
     return (
     <div className='mb-3'>
       <h3>Color Ranges:</h3>
+      <Form.Range
+        min={0}
+        max={100}
+        value={baseColor}
+        onChange={handleSliderChange}
+      />
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <div style={{ width: '20px', height: '20px', backgroundColor: 'hsl(60, 75%, 75%)' }}></div>
         <span style={{ marginLeft: '8px' }}>Lower Post Length</span>
