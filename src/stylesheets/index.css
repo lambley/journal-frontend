@@ -2,6 +2,7 @@
 @import url('forms.css');
 @import url('label.css');
 @import url('navbar.css');
+@import url('calendar.css');
 
 body {
   margin: 0;

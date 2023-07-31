@@ -33,7 +33,7 @@ export const MyCalendar = () => {
   }
 
   return (
-    <>
+    <div className="calendar-container">
       <button className="btn btn-secondary" onClick={getPosts}>Get Posts</button>
       <div>
         <Calendar
@@ -41,7 +41,7 @@ export const MyCalendar = () => {
           tileClassName={({ date, view }) => {
             if(postDates.find(x=>moment(x).format('DD-MM-YYYY')===moment(date).format("DD-MM-YYYY"))){
               return  'highlight'
-             }
+              }
             // if(moment(date).format('YYYY-MM-DD') == moment(postDates[0]).format('YYYY-MM-DD')){
             //   return 'highlight'
             // }
@@ -57,6 +57,6 @@ export const MyCalendar = () => {
       <div>
         Selected Date {value!.toLocaleString("uk").split(', ')[0] || "No date selected"}
       </div>
-    </>
+    </div>
   );
 }
