@@ -5,6 +5,7 @@ import { axiosInstance } from "../Api/Api.js"
 import { IPost } from '../types/data.js';
 import moment, { Moment } from 'moment';
 import { Post } from './Post';
+import { ButtonGroup, Button } from 'react-bootstrap';
 
 type ValuePiece = Date | null;
 
@@ -22,6 +23,7 @@ export const MyCalendar = () => {
       created_at: new Date(),
     }
   );
+  const [activeView, setActiveView] = useState<string>('Length');
 
   useEffect(() => {
     const getPosts = async () => {
@@ -79,10 +81,9 @@ export const MyCalendar = () => {
 
     if (postForDate) {
       const postContent = postForDate.content;
-      const postTitle = postForDate.title;
-      const contentLength = postContent.length + postTitle.length;
+      const contentLength = postContent.length;
 
-      if (postContent) {
+      if (postContent && activeView === 'Length') {
         const minContentLength = Math.min(...posts.map(post => post.content.length + post.title.length));
         const maxContentLength = Math.max(...posts.map(post => post.content.length + post.title.length));
 
@@ -94,25 +95,83 @@ export const MyCalendar = () => {
 
         return backgroundColor;
       }
+      else if (postContent && activeView === 'Label') {
+        const label = postForDate.label;
+
+        if (label === 'idea') {
+          return '#498afb';
+        }
+        else if (label === 'fun') {
+          return '#fa8142';
+        }
+        else if (label === 'work') {
+          return '#09c372';
+        }
+        else {
+          return '#ff3860';
+        }
+      }
     }
 
     return 'transparent';
   };
 
-  return (
-    <div className="calendar-container">
-      <div>
-        <h3>Color Ranges:</h3>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div style={{ width: '20px', height: '20px', backgroundColor: 'hsl(60, 75%, 75%)' }}></div>
-          <span style={{ marginLeft: '8px' }}>Lower Post Length</span>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div style={{ width: '20px', height: '20px', backgroundColor: 'hsl(0, 75%, 75%)' }}></div>
-          <span style={{ marginLeft: '8px' }}>Max Post Length</span>
-        </div>
+  const lengthView = () => {
+    return (
+    <div className='mb-3'>
+      <h3>Color Ranges:</h3>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div style={{ width: '20px', height: '20px', backgroundColor: 'hsl(60, 75%, 75%)' }}></div>
+        <span style={{ marginLeft: '8px' }}>Lower Post Length</span>
       </div>
-      <div>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div style={{ width: '20px', height: '20px', backgroundColor: 'hsl(0, 75%, 75%)' }}></div>
+        <span style={{ marginLeft: '8px' }}>Max Post Length</span>
+      </div>
+    </div>
+    )
+  }
+
+  const labelView = () => {
+    return (
+      <div className='mb-3'>
+        <h3>Labels:</h3>
+        <span className='post-label post-label-idea'>
+          #idea
+        </span>
+        <span className='post-label post-label-fun'>
+          #fun
+        </span>
+        <span className='post-label post-label-work'>
+          #work
+        </span>
+        <span className='post-label post-label-life'>
+          #life
+        </span>
+      </div>
+    )
+  }
+
+  const handleViewClick = (view: string) => {
+    setActiveView(view);
+  }
+  return (
+    <div className="calendar-container mt-3">
+      <ButtonGroup>
+        <Button
+          variant={activeView === "Length" ? "secondary active" : "secondary"}
+          onClick={() => {handleViewClick("Length")}}
+        >
+          Length
+        </Button>
+        <Button
+          variant={activeView === "Label" ? "secondary active" : "secondary"}
+          onClick={() => {handleViewClick("Label")}}
+        >
+          Label
+        </Button>
+      </ButtonGroup>
+      <div className='mb-3 mt-3'>
         <Calendar
           onChange={()=>handleDayClick}
           value={value}
@@ -133,13 +192,17 @@ export const MyCalendar = () => {
                   alignItems: 'center',
                   color: 'white',
                 }}
-              >
+                >
                 X
               </div>
             );
           }}
-        />
+          />
       </div>
+      {activeView === "Length"
+        ? lengthView()
+        : labelView()
+      }
       {/* <div>
         Selected Date {value!.toLocaleString('uk').split(', ')[0] || 'No date selected'}
       </div> */}
