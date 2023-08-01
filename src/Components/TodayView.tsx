@@ -2,12 +2,13 @@ import { Button, ButtonGroup, Container, Row, Col } from 'react-bootstrap';
 import { axiosInstance } from "../Api/Api";
 import { useState, useEffect } from "react";
 import { IPost } from "../types/data";
-import { Post } from "./Post";
+import { TodayViewPost } from "./TodayViewPost";
 import moment from 'moment';
 
 export const TodayView = () => {
   const [post, setPost] = useState<IPost>();
   const [date, setDate] = useState<Date>(new Date());
+  const [labelImage, setLabelImage] = useState<string>("");
 
   useEffect(() => {
     getQuote(date.toISOString());
@@ -17,9 +18,15 @@ export const TodayView = () => {
     try {
       const response = await axiosInstance.get("/api/v1/posts/date=" + date);
       setPost(response.data);
+      getLabelImage(response.data.label);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const getLabelImage = (label: string): void => {
+    const url = `https://source.unsplash.com/random?${label}`;
+    setLabelImage(url);
   };
 
   const handlePrevDay = () => {
@@ -43,11 +50,11 @@ export const TodayView = () => {
   const postComponent = (post: IPost | undefined) => {
     if (post) {
       return (
-        <Post {...post} />
+        <TodayViewPost {...post} />
       );
     } else {
       return (
-        <Post
+        <TodayViewPost
           key={1}
           id={0}
           title={"No post for this day yet!"}
@@ -65,7 +72,18 @@ export const TodayView = () => {
       <Row>
         <Col xs={12} md={10} lg={8} className="mx-auto">
           <div className="quote">
-            {postComponent(post)}
+            <div style={{
+              backgroundImage: `url(${labelImage})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              height: "50vh",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}>
+              {postComponent(post)}
+            </div>
           </div>
         </Col>
       </Row>
