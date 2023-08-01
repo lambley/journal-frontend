@@ -5,7 +5,7 @@ import { DeleteConfirmationModal } from "../Components/DeleteConfirmationModal";
 import { IPost } from "../types/data";
 import { axiosInstance } from "../Api/Api.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSquareXmark, faSquarePen } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan, faSquarePen } from '@fortawesome/free-solid-svg-icons';
 import { Col, Button, Form, Row, ButtonGroup, Alert, Modal } from "react-bootstrap";
 import { throttle } from "lodash";
 
@@ -155,13 +155,29 @@ export const PostList = () => {
     })
   }
 
-  const editPostComponent = (post:IPost) => {
+  const toggleButtonClasses = (post:IPost) => {
     const editButton = document.querySelector('.post-button-edit')
     const deleteButton = document.querySelector('.post-button-delete')
 
-    editButton?.classList.add('post-button-edit-active')
-    deleteButton?.classList.add('post-button-delete-active')
-    
+    if (isEditing.isEdit && isEditing.id === post.id) {
+      editButton?.classList.remove('post-button-edit-active')
+      deleteButton?.classList.remove('post-button-delete-active')
+    } else {
+      editButton?.classList.add('post-button-edit-active')
+      deleteButton?.classList.add('post-button-delete-active')
+    }
+  }
+
+  const handleEditClick = (post:IPost) => {
+    setIsEditing({
+      isEdit: !isEditing.isEdit,
+      id: post.id!,
+    })
+    toggleButtonClasses(post)
+    editPostComponent(post)
+  }
+
+  const editPostComponent = (post:IPost) => {
     return (
       <div className="edit-post-form">
         <h2>Edit Post</h2>
@@ -254,12 +270,7 @@ export const PostList = () => {
                 <button
                   className="post-button post-button-edit"
                   aria-label="Edit Post"
-                  onClick={() =>
-                    setIsEditing({
-                      isEdit: !isEditing.isEdit,
-                      id: post.id!,
-                    })
-                  }
+                  onClick={() => handleEditClick(post)}
                 >
                   <FontAwesomeIcon icon={faSquarePen} />
                 </button>
@@ -269,7 +280,7 @@ export const PostList = () => {
                   aria-label="Delete Post"
                   onClick={() => handleDelete(post.id!)}
                 >
-                  <FontAwesomeIcon icon={faSquareXmark} />
+                  <FontAwesomeIcon icon={faTrashCan} />
                 </button>
               </div>
               {isEditing.isEdit && isEditing.id === post.id ? (
