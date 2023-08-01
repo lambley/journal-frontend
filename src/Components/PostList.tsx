@@ -266,7 +266,7 @@ export const PostList = () => {
           {posts.map((post: IPost) => (
             <Col sm={12} md={4} className="mb-3" key={post.id}>
               <div className="post-card-button-wrapper">
-                {/* Edit Button (unchanged) */}
+                {/* Edit Button*/}
                 <button
                   className="post-button post-button-edit"
                   aria-label="Edit Post"
@@ -274,7 +274,7 @@ export const PostList = () => {
                 >
                   <FontAwesomeIcon icon={faSquarePen} />
                 </button>
-                {/* Delete Button (unchanged) */}
+                {/* Delete Button*/}
                 <button
                   className="post-button post-button-delete"
                   aria-label="Delete Post"
