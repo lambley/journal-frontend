@@ -51,10 +51,6 @@
   position: absolute;
 }
 
-.post-form-foreground:focus-within{
-  box-shadow: 1px 3px 6px 1px #80808066;
-}
-
 .post-card {
   height: "180px";
   display: "flex";
