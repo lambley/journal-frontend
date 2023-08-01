@@ -32,13 +32,13 @@ export const Post = (props: IPost) => {
       flexWrap: "wrap",
     }}>
       <Card.Body>
-        <div className="post-quote-left">
-          <FontAwesomeIcon icon={faQuoteLeft} style={{ marginRight: "8px" }} />
-          <Card.Title>{props.id}. {title}</Card.Title>
-        </div>
         <div className="post-quote-right">
-          <Card.Text>{content}</Card.Text>
+          <FontAwesomeIcon icon={faQuoteLeft} style={{ marginRight: "8px" }} />
+          <Card.Title>{content}</Card.Title>
           <FontAwesomeIcon icon={faQuoteRight} style={{ marginRight: "8px" }} />
+        </div>
+        <div className="post-quote-left">
+          <Card.Text>{title}</Card.Text>
         </div>
         <div className="post-card-bottom">
           <Link to={`/label/${label}`} className={`link post-label ${colourLabels(label)}`}>

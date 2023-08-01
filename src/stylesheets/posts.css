@@ -124,6 +124,9 @@
 .post-quote-left, .post-quote-right {
   display: flex;
   align-items: center;
+  justify-content: space-evenly;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 
 .post-quote-left {
