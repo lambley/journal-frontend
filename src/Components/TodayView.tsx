@@ -81,6 +81,7 @@ export const TodayView = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              borderRadius: "16px",
             }}>
               {postComponent(post)}
             </div>
