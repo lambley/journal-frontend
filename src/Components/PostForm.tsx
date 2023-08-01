@@ -38,7 +38,7 @@ export const PostForm = (props: { updatePostList: (post: IPost) => void }) => {
     <Form onSubmit={handleSubmit(onSubmit)} className="edit-post-form" style={{width: '50%'}}>
       <h2 style={{ marginBottom: "20px" }}>Create New Post</h2>
       <Form.Group className="post-form-group">
-        <Form.Label htmlFor="post-form-title">Title</Form.Label>
+        <Form.Label htmlFor="post-form-title">Author</Form.Label>
         <Form.Control
           {...register("title", { required: true })}
           id="post-form-title"
@@ -51,7 +51,7 @@ export const PostForm = (props: { updatePostList: (post: IPost) => void }) => {
       </Form.Group>
 
       <Form.Group className="post-form-group">
-        <Form.Label htmlFor="post-form-content">Content</Form.Label>
+        <Form.Label htmlFor="post-form-content">Quote</Form.Label>
         <Form.Control
           {...register("content", { required: true })}
           id="post-form-content"

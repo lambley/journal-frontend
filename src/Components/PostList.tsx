@@ -190,12 +190,12 @@ export const PostList = () => {
       <div className="edit-post-form">
         <h2>Edit Post</h2>
         <div className="post-form-group">
-          <label htmlFor="title">Title</label>
+          <label htmlFor="title">Author</label>
           <input className="post-form-text-field" type="text" name="title" id="edit-title" defaultValue={post.title}/>
         </div>
 
         <div className="post-form-group">
-          <label htmlFor="content">Content</label>
+          <label htmlFor="content">Quote</label>
           <input className="post-form-text-field" type="text" name="content" id="edit-content" defaultValue={post.content}/>
         </div>
 
