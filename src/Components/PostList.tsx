@@ -5,7 +5,7 @@ import { DeleteConfirmationModal } from "../Components/DeleteConfirmationModal";
 import { IPost } from "../types/data";
 import { axiosInstance } from "../Api/Api.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan, faSquarePen } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan, faSquarePen, faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Col, Button, Form, Row, ButtonGroup, Alert, Modal } from "react-bootstrap";
 import { throttle } from "lodash";
 
@@ -234,15 +234,33 @@ export const PostList = () => {
     <>
       <div className="mt-3">
         {showConfirmation && (
-            <Alert variant="success" className="mt-2">
-              Post has been created!
-            </Alert>
-            )
+          <Alert variant="success" className="mt-2">
+            Post has been created!
+          </Alert>
+          )
         }
         {/* Post Form and Sort/Filter Options */}
         <Row>
           <Col xs={12} sm={6} md={4}>
-            <Button onClick={() => setShowForm(!showForm)}>Create New Post</Button>
+            <Button
+              variant="info"
+              onClick={() => setShowForm(!showForm)}
+              className="button-transform"
+            >
+              {showForm ? (
+                <>
+                  <span className="button-text">
+                    <FontAwesomeIcon icon={faTimes} /> Close Form
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="button-text">
+                    <FontAwesomeIcon icon={faPlus} /> Create New Quote
+                  </span>
+                </>
+              )}
+            </Button>
             <div className="post-form-foreground">
               {showForm && <PostForm updatePostList={updatePostList} />}
             </div>
