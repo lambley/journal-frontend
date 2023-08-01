@@ -10,7 +10,7 @@ import { faHouse, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 function App() {
   return (
     <>
-      <Navbar className="navbar-custom" expand="lg">
+      <Navbar className="sticky-top navbar-custom" expand="lg">
         <Container fluid>
           <Navbar.Brand as={Link} to="/" className="nav-link">
             <FontAwesomeIcon icon={faHouse} />
