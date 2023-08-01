@@ -5,7 +5,7 @@ import { AboutPage } from './Pages/AboutPage';
 import { LabelPage } from './Pages/LabelPage';
 import { Container, Navbar } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
             <FontAwesomeIcon icon={faHouse} />
           </Navbar.Brand>
           <Navbar.Brand as={Link} to="/" className="nav-link">
-            <h1>WiseWords</h1>
+            <h1>WiseWords <FontAwesomeIcon icon={faCommentDots} /></h1>
           </Navbar.Brand>
           <Navbar.Brand as={Link} to="/about" className="nav-link">
             About
