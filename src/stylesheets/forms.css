@@ -41,3 +41,10 @@
   font-size: 18px;
   font-weight: bold;
 }
+
+.form-button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}

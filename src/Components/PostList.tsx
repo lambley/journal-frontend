@@ -177,6 +177,14 @@ export const PostList = () => {
     editPostComponent(post)
   }
 
+  const handleCancelEdit = (post:IPost) => {
+    setIsEditing({
+      isEdit: false,
+      id: 0
+    })
+    toggleButtonClasses(post)
+  }
+
   const editPostComponent = (post:IPost) => {
     return (
       <div className="edit-post-form">
@@ -196,9 +204,20 @@ export const PostList = () => {
           <input className="post-form-text-field" type="text" name="label" id="edit-label" defaultValue={post.label}/>
         </div>
 
-        <Button variant="primary" onClick={()=>onEditSubmit(post)}>
-          Submit
-        </Button>
+        <div className="form-button-group">
+          <Button
+            variant="primary"
+            onClick={()=>onEditSubmit(post)}
+          >
+            Submit
+          </Button>
+          <Button
+            variant="danger"
+            onClick={()=>handleCancelEdit(post)}
+          >
+            Cancel
+          </Button>
+        </div>
         <hr />
       </div>
     )
