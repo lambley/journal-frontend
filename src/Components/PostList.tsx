@@ -109,7 +109,7 @@ export const PostList = () => {
     setDeletePostId(id);
     setShowDeleteConfirmation(true);
   };
-  
+
   const handleConfirmDelete = async () => {
     if (deletePostId) {
       try {
@@ -156,6 +156,12 @@ export const PostList = () => {
   }
 
   const editPostComponent = (post:IPost) => {
+    const editButton = document.querySelector('.post-button-edit')
+    const deleteButton = document.querySelector('.post-button-delete')
+
+    editButton?.classList.add('post-button-edit-active')
+    deleteButton?.classList.add('post-button-delete-active')
+    
     return (
       <div className="edit-post-form">
         <h2>Edit Post</h2>

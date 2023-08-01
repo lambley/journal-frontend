@@ -83,11 +83,15 @@
 }
 
 .post-button-edit:hover {
-  color: #808080;
+  color: #10bf03;
 }
 
 .post-button-delete:hover {
   color: red;
+}
+
+.post-button-edit-active, .post-button-delete-active {
+  color: white
 }
 
 .post-date {
