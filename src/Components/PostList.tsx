@@ -149,6 +149,7 @@ export const PostList = () => {
     } catch(error: any) {
       console.log(error)
     }
+    toggleButtonClasses(post)
     setIsEditing({
       isEdit: false,
       id: 0
@@ -199,10 +200,20 @@ export const PostList = () => {
           <input className="post-form-text-field" type="text" name="content" id="edit-content" defaultValue={post.content}/>
         </div>
 
-        <div className="post-form-group">
-          <label htmlFor="label">Label</label>
-          <input className="post-form-text-field" type="text" name="label" id="edit-label" defaultValue={post.label}/>
-        </div>
+      <div className="post-form-group">
+        <label htmlFor="edit-label">Label</label>
+        <select
+          className="post-form-text-field"
+          name="label"
+          id="edit-label"
+          defaultValue={post.label}
+        >
+          <option value="idea">Idea</option>
+          <option value="fun">Fun</option>
+          <option value="work">Work</option>
+          <option value="life">Life</option>
+        </select>
+      </div>
 
         <div className="form-button-group">
           <Button

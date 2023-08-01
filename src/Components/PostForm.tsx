@@ -66,13 +66,18 @@ export const PostForm = (props: { updatePostList: (post: IPost) => void }) => {
       <Form.Group className="post-form-group">
         <Form.Label htmlFor="post-form-label">Label</Form.Label>
         <Form.Control
+          as="select"
           {...register("label", { required: true })}
           id="post-form-label"
-          type="text"
           name="label"
           onChange={(e) => setLabel(e.target.value)}
           className="post-form-text-field"
-        />
+        >
+          <option value="idea">Idea</option>
+          <option value="fun">Fun</option>
+          <option value="work">Work</option>
+          <option value="life">Life</option>
+        </Form.Control>
         {errors?.label?.type === "required" && <p>This field is required</p>}
       </Form.Group>
 
