@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { axiosInstance } from "../Api/Api.js"
@@ -169,18 +170,18 @@ export const MyCalendar = () => {
     return (
       <div className='mb-3'>
         <h3>Labels:</h3>
-        <span className='post-label post-label-idea'>
+        <Link to={`/label/idea`} className='link post-label post-label-idea'>
           #idea
-        </span>
-        <span className='post-label post-label-fun'>
+        </Link>
+        <Link to={`/label/fun`} className='link post-label post-label-fun'>
           #fun
-        </span>
-        <span className='post-label post-label-work'>
+        </Link>
+        <Link to={`/label/work`} className='link post-label post-label-work'>
           #work
-        </span>
-        <span className='post-label post-label-life'>
+        </Link>
+        <Link to={`/label/life`} className='link post-label post-label-life'>
           #life
-        </span>
+        </Link>
       </div>
     )
   }
