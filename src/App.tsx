@@ -16,7 +16,7 @@ function App() {
             <FontAwesomeIcon icon={faHouse} />
           </Navbar.Brand>
           <Navbar.Brand as={Link} to="/" className="nav-link">
-            <h1>Famous Quotes</h1>
+            <h1>WiseWords</h1>
           </Navbar.Brand>
           <Navbar.Brand as={Link} to="/about" className="nav-link">
             About
