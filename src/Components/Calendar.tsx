@@ -6,6 +6,8 @@ import { IPost } from '../types/data.js';
 import moment, { Moment } from 'moment';
 import { Post } from './Post';
 import { ButtonGroup, Button, Form } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCommentDots } from '@fortawesome/free-solid-svg-icons';
 
 type ValuePiece = Date | null;
 
@@ -204,6 +206,7 @@ export const MyCalendar = () => {
       </ButtonGroup>
       <div className='mb-3 mt-3'>
         <Calendar
+          className={'calendar'}
           onChange={()=>handleDayClick}
           value={value}
           onClickDay={(value, event) => {
@@ -217,15 +220,17 @@ export const MyCalendar = () => {
                 style={{
                   backgroundColor,
                   borderRadius: '8px',
-                  width: '36px',
-                  height: '36px',
+                  width: '40px',
+                  height: '40px',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
                   color: 'white',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
                 }}
                 >
-                X
+                <FontAwesomeIcon icon={faCommentDots} />
               </div>
             );
           }}
