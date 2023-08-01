@@ -29,3 +29,13 @@ code {
 .link {
   text-decoration: none;
 }
+
+.loading-background {
+  background-image: url('../../public/images/loading.gif');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100px;
+  height: 50vh;
+  width: auto;
+  margin: 0 auto;
+}

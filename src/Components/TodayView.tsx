@@ -9,10 +9,19 @@ export const TodayView = () => {
   const [post, setPost] = useState<IPost>();
   const [date, setDate] = useState<Date>(new Date());
   const [labelImage, setLabelImage] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     getQuote(date.toISOString());
   }, []);
+
+  useEffect(() => {
+    setLoading(true);
+    const img = new Image();
+    img.src = labelImage;
+    img.onload = () => setLoading(false);
+    img.onerror = () => setLoading(false);
+  }, [labelImage]);
 
   const getQuote = async (date: string) => {
     try {
@@ -65,26 +74,29 @@ export const TodayView = () => {
       );
     }
   };
-
   return (
     <Container className="today-view">
       <h1 className="today-view-header">Quote of the Day</h1>
       <Row>
         <Col xs={12} md={10} lg={8} className="mx-auto">
           <div className="quote">
-            <div style={{
-              backgroundImage: `url(${labelImage})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              height: "50vh",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: "16px",
-            }}>
-              {postComponent(post)}
-            </div>
+            {loading
+              ? <div className="loading-background"></div>
+              :
+              <div style={{
+                backgroundImage: `url(${labelImage})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                height: "50vh",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "16px",
+              }}>
+                {postComponent(post)}
+              </div>
+            }
           </div>
         </Col>
       </Row>
