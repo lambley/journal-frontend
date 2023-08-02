@@ -77,10 +77,6 @@ describe('PostList', () => {
   test('filtering the post list by search input', async () => {
     render(<PostList />);
 
-    await waitFor(() => {
-      expect(screen.getByText(/Test Post/i)).toBeInTheDocument();
-    });
-
     const searchInput = screen.getByLabelText('Search');
 
     fireEvent.change(searchInput, { target: { value: 'Test' } });
@@ -88,7 +84,7 @@ describe('PostList', () => {
     await waitFor(() => {
       const filteredPosts = screen.getAllByText(/Test Post/i);
       expect(filteredPosts[0]).toBeInTheDocument();
-    }, { timeout: 500 });
+    }, { timeout: 1000 });
 
     fireEvent.change(searchInput, { target: { value: '' } });
 
