@@ -28,6 +28,12 @@ export const PostList = () => {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [deletePostId, setDeletePostId] = useState<number | null>(null);
 
+  const jwtToken = localStorage.getItem("jwtToken");
+
+  const headers = {
+    'Authorization': `Bearer ${jwtToken}`,
+  };
+
   useEffect(() => {
     getPosts()
   }, [isUpdated])
@@ -113,7 +119,7 @@ export const PostList = () => {
   const handleConfirmDelete = async () => {
     if (deletePostId) {
       try {
-        const response = await axiosInstance.delete(`/api/v1/posts/${deletePostId}`);
+        const response = await axiosInstance.delete(`/api/v1/posts/${deletePostId}`, {headers});
         const index = posts.findIndex((post) => post.id === deletePostId);
         if (index !== -1) {
           const newPosts = [...posts];
@@ -142,7 +148,7 @@ export const PostList = () => {
         title: (document.getElementById('edit-title') as HTMLInputElement)?.value,
         content: (document.getElementById('edit-content') as HTMLInputElement)?.value,
         label: (document.getElementById('edit-label') as HTMLInputElement)?.value,
-      })
+      }, {headers})
       console.log(response)
       getPosts()
       sortPosts(sortOption)
