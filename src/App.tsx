@@ -16,10 +16,6 @@ function App() {
     setLoggedInUser();
   }, []);
 
-  useEffect(() => {
-    setLoggedInUser();
-  }, [username]);
-
   const setLoggedInUser = () => {
     const jwtToken = localStorage.getItem('jwtToken');
     const decodedToken = jwtToken ? JSON.parse(atob(jwtToken.split('.')[1])) : null;
@@ -77,7 +73,7 @@ function App() {
       <Container>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage onLoginStatusChange={setLoggedInUser}/>} />
           {/* <Route path="/about" element={<AboutPage />} /> */}
           <Route path="label/:label" element={<LabelPage/>} />
           <Route path="*" element={<NotFoundPage />} />

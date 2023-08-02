@@ -3,7 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 import { axiosInstance } from '../Api/Api';
 
-export const LoginPage: React.FC = () => {
+interface LoginPageProps {
+  onLoginStatusChange: () => void;
+}
+
+export const LoginPage: React.FC<LoginPageProps> = ({onLoginStatusChange}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -25,6 +29,7 @@ export const LoginPage: React.FC = () => {
       if (decodedToken) {
         console.log('Login successful:', user);
         localStorage.setItem('jwtToken', token);
+        onLoginStatusChange();
         navigate(-1);
       } else {
         console.log('Login failed:', Error);
