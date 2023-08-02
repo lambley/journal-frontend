@@ -72,6 +72,7 @@ export const PostForm = (props: { updatePostList: (post: IPost) => void }) => {
           name="label"
           onChange={(e) => setLabel(e.target.value)}
           className="post-form-text-field"
+          defaultValue={"idea"}
         >
           <option value="idea">Idea</option>
           <option value="fun">Fun</option>
