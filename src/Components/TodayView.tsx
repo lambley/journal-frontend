@@ -75,7 +75,7 @@ export const TodayView = () => {
     }
   };
   return (
-    <Container className="today-view">
+    <Container className="today-view" aria-label="Today's Quote">
       <h1 className="today-view-header">Quote of the Day</h1>
       <Row>
         <Col xs={12} md={10} lg={8} className="mx-auto">
@@ -102,7 +102,7 @@ export const TodayView = () => {
       </Row>
       <Row className="mt-3">
         <Col xs={12} md={10} lg={8} className="mx-auto">
-          <ButtonGroup className="d-flex justify-content-center" aria-label="Basic example">
+          <ButtonGroup className="d-flex justify-content-center" aria-label="Today's Quote navigation">
             <Button
               variant="secondary"
               onClick={handlePrevDay}

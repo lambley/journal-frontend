@@ -146,8 +146,10 @@ export const MyCalendar = () => {
     return (
     <div className='mb-3'>
       <h3>Colour Ranges:</h3>
-      <Form.Label>Hue: {baseColour}</Form.Label>
+      <Form.Label htmlFor='colorSlider'>Hue: {baseColour}</Form.Label>
       <Form.Range
+        id='colorSlider'
+        aria-labelledby='colorSlider'
         className="custom-slider"
         min={30}
         max={100}

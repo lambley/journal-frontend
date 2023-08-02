@@ -22,7 +22,6 @@ export const HomePage = () => {
               handleViewClick("TodayView");
             }}
             active={activeView === "TodayView"}
-            aria-label="Today's Quote"
           >
             Today
           </Button>
@@ -32,7 +31,6 @@ export const HomePage = () => {
               handleViewClick("PostList");
             }}
             active={activeView === "PostList"}
-            aria-label="List of Quotes"
           >
             List
           </Button>
@@ -42,7 +40,7 @@ export const HomePage = () => {
               handleViewClick("MyCalendar");
             }}
             active={activeView === "MyCalendar"}
-            aria-label="Calendar of Quotes"
+            aria-label="Quote Calendar"
           >
             Calendar
           </Button>
@@ -59,7 +57,7 @@ export const HomePage = () => {
       </div>
       <Tab.Container activeKey={activeView}>
         <Tab.Content>
-          <Tab.Pane eventKey="TodayView" aria-label="Quote of the Day">
+          <Tab.Pane eventKey="TodayView" aria-label="Today's Quote">
             <TodayView />
           </Tab.Pane>
           <Tab.Pane eventKey="PostList" aria-label="List of Quotes">
