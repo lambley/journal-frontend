@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Post } from '../Post';
 import { IPost } from '../../types/data';
+import { MemoryRouter } from 'react-router';
 
 const postMock: IPost = {
   id: 1,
@@ -12,9 +13,9 @@ const postMock: IPost = {
 };
 
 test('Post component renders correctly', () => {
-  render(<Post {...postMock} />);
+  render(<MemoryRouter><Post {...postMock} /></MemoryRouter>);
 
-  expect(screen.getByText('1. Test Post')).toBeInTheDocument();
+  expect(screen.getByText('Test Post')).toBeInTheDocument();
   expect(screen.getByText('This is a test post.')).toBeInTheDocument();
   expect(screen.getByText('#work')).toHaveClass('post-label');
   const formattedDate = postMock.created_at?.toString().slice(0, 10);
