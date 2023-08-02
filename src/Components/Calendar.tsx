@@ -148,6 +148,7 @@ export const MyCalendar = () => {
       <h3>Colour Ranges:</h3>
       <Form.Label>Hue: {baseColour}</Form.Label>
       <Form.Range
+        className="custom-slider"
         min={30}
         max={100}
         value={baseColour}
@@ -231,7 +232,7 @@ export const MyCalendar = () => {
                   marginRight: 'auto',
                 }}
                 >
-                <FontAwesomeIcon icon={faCommentDots} />
+                {backgroundColor == "transparent" ? null : <FontAwesomeIcon icon={faCommentDots} /> }
               </div>
             );
           }}

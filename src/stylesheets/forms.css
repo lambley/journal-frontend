@@ -55,3 +55,12 @@
   justify-content: space-between;
   width: 100%;
 }
+
+.custom-slider {
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.custom-slider:hover {
+  opacity: 1;
+}
