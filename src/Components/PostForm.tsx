@@ -18,6 +18,12 @@ export const PostForm = (props: { updatePostList: (post: IPost) => void }) => {
   const [content, setContent] = useState<string>("");
   const [label, setLabel] = useState<string>("");
 
+  const jwtToken = localStorage.getItem("jwtToken");
+
+  const headers = {
+    'Authorization': `Bearer ${jwtToken}`,
+  };
+
   const {
     register,
     handleSubmit,
@@ -33,7 +39,7 @@ export const PostForm = (props: { updatePostList: (post: IPost) => void }) => {
     };
 
     try {
-      const response = await axiosInstance.post("/api/v1/posts", { post: postData });
+      const response = await axiosInstance.post("/api/v1/posts", { post: postData }, { headers });
 
       props.updatePostList(response.data);
     } catch (error: any) {
