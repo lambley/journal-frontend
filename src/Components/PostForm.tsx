@@ -4,8 +4,16 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 
+interface IFieldErrors {
+  id?: string;
+  author?: string;
+  quote?: string;
+  label?: string;
+}
+
 export const PostForm = (props: { updatePostList: (post: IPost) => void }) => {
   const [serverError, setServerError] = useState<string>("")
+  const [fieldErrors, setFieldErrors] = useState<IFieldErrors>({});
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [label, setLabel] = useState<string>("");
@@ -30,6 +38,9 @@ export const PostForm = (props: { updatePostList: (post: IPost) => void }) => {
       props.updatePostList(response.data);
     } catch (error: any) {
       console.log(error);
+      if (error.response?.data) {
+        setFieldErrors(error.response.data);
+      }
       setServerError(error.message || "Server error occurred.");
     }
   };
@@ -48,6 +59,8 @@ export const PostForm = (props: { updatePostList: (post: IPost) => void }) => {
           className="post-form-text-field"
         />
         {errors?.title?.type === "required" && <p>This field is required</p>}
+        {fieldErrors?.author && <p style={{ color: "red" }}>Author: {fieldErrors.author}</p>}
+
       </Form.Group>
 
       <Form.Group className="post-form-group">
@@ -61,6 +74,8 @@ export const PostForm = (props: { updatePostList: (post: IPost) => void }) => {
           className="post-form-text-field"
         />
         {errors?.content?.type === "required" && <p>This field is required</p>}
+        {fieldErrors?.quote && <p style={{ color: "red" }}>Quote: {fieldErrors.quote}</p>}
+
       </Form.Group>
 
       <Form.Group className="post-form-group">
@@ -72,14 +87,16 @@ export const PostForm = (props: { updatePostList: (post: IPost) => void }) => {
           name="label"
           onChange={(e) => setLabel(e.target.value)}
           className="post-form-text-field"
-          defaultValue={"idea"}
+          defaultValue={""}
         >
+          <option value="---">---</option>
           <option value="idea">Idea</option>
           <option value="fun">Fun</option>
           <option value="work">Work</option>
           <option value="life">Life</option>
         </Form.Control>
         {errors?.label?.type === "required" && <p>This field is required</p>}
+        {fieldErrors?.label && <p style={{ color: "red" }}>Label: {fieldErrors.label}</p>}
       </Form.Group>
 
       {serverError && <p style={{ color: "red" }}>{serverError}</p>}
