@@ -12,10 +12,10 @@ function App() {
     <>
       <Navbar className="sticky-top navbar-custom" expand="lg">
         <Container fluid>
-          <Navbar.Brand as={Link} to="/" className="nav-link">
+          <Navbar.Brand as={Link} to="/" className="nav-link" aria-label='home'>
             <FontAwesomeIcon icon={faHouse} />
           </Navbar.Brand>
-          <Navbar.Brand as={Link} to="/" className="nav-link">
+          <Navbar.Brand className="navbar-title ">
             <h1>WiseWords <FontAwesomeIcon icon={faCommentDots} /></h1>
           </Navbar.Brand>
           <Navbar.Brand as={Link} to="/about" className="nav-link">

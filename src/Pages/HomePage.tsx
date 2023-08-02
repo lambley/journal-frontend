@@ -15,13 +15,14 @@ export const HomePage = () => {
   return (
     <div className="home-page">
       <div className="navigation-buttons d-flex justify-content-center mt-3">
-        <ButtonGroup aria-label="Basic example">
+        <ButtonGroup aria-label="Home page tab options">
           <Button
             variant="secondary"
             onClick={() => {
               handleViewClick("TodayView");
             }}
             active={activeView === "TodayView"}
+            aria-label="Today's Quote"
           >
             Today
           </Button>
@@ -31,6 +32,7 @@ export const HomePage = () => {
               handleViewClick("PostList");
             }}
             active={activeView === "PostList"}
+            aria-label="List of Quotes"
           >
             List
           </Button>
@@ -40,6 +42,7 @@ export const HomePage = () => {
               handleViewClick("MyCalendar");
             }}
             active={activeView === "MyCalendar"}
+            aria-label="Calendar of Quotes"
           >
             Calendar
           </Button>
@@ -56,18 +59,18 @@ export const HomePage = () => {
       </div>
       <Tab.Container activeKey={activeView}>
         <Tab.Content>
-          <Tab.Pane eventKey="TodayView">
+          <Tab.Pane eventKey="TodayView" aria-label="Quote of the Day">
             <TodayView />
           </Tab.Pane>
-          <Tab.Pane eventKey="PostList">
+          <Tab.Pane eventKey="PostList" aria-label="List of Quotes">
             <PostList />
           </Tab.Pane>
-          <Tab.Pane eventKey="MyCalendar">
+          <Tab.Pane eventKey="MyCalendar" aria-label="Quote Calendar">
             <MyCalendar />
           </Tab.Pane>
-          <Tab.Pane eventKey="YearOverviewChart">
+          {/* <Tab.Pane eventKey="YearOverviewChart">
             <YearOverviewChart />
-          </Tab.Pane>
+          </Tab.Pane> */}
         </Tab.Content>
       </Tab.Container>
     </div>

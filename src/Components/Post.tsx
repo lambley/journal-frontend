@@ -33,9 +33,9 @@ export const Post = (props: IPost) => {
     }}>
       <Card.Body>
         <div className="post-quote-right">
-          <FontAwesomeIcon icon={faQuoteLeft} style={{ marginRight: "8px" }} />
+          <FontAwesomeIcon icon={faQuoteLeft} style={{ marginRight: "8px" }} aria-label="left quote"/>
           <Card.Title>{content}</Card.Title>
-          <FontAwesomeIcon icon={faQuoteRight} style={{ marginRight: "8px" }} />
+          <FontAwesomeIcon icon={faQuoteRight} style={{ marginRight: "8px" }} aria-label="right quote"/>
         </div>
         <div className="post-quote-left">
           <Card.Text>{title}</Card.Text>
