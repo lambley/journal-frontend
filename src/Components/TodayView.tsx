@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { IPost } from "../types/data";
 import { TodayViewPost } from "./TodayViewPost";
 import moment from 'moment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAnglesLeft, faAnglesRight, faDice } from '@fortawesome/free-solid-svg-icons';
 
 export const TodayView = () => {
   const [post, setPost] = useState<IPost>();
@@ -38,6 +40,7 @@ export const TodayView = () => {
     setLabelImage(url);
   };
 
+  // Navigation button handlers
   const handlePrevDay = () => {
     setDate(new Date(date.setDate(date.getDate() - 1)));
     const prevDay = date.toISOString();
@@ -54,6 +57,16 @@ export const TodayView = () => {
     setDate(new Date());
     const today = new Date().toISOString();
     getQuote(today);
+  }
+
+  const randomizeDateWithinRange = () => {
+    const currentDate = new Date();
+    const minDate = new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate());
+    const maxDate = new Date(currentDate.getFullYear() + 1, currentDate.getMonth(), currentDate.getDate());
+
+    const randomDate = new Date(minDate.getTime() + Math.random() * (maxDate.getTime() - minDate.getTime()));
+
+    return randomDate;
   }
 
   const postComponent = (post: IPost | undefined) => {
@@ -106,22 +119,40 @@ export const TodayView = () => {
             <Button
               variant="secondary"
               onClick={handlePrevDay}
+              aria-label="Previous Day"
             >
-              Previous Day
+              <FontAwesomeIcon icon={faAnglesLeft} />
             </Button>
             <Button
               variant={moment(date).isSame(moment(), 'day') ? "secondary active" : "secondary"}
               onClick={handleToday}
+              aria-label='Today'
             >
               Today
             </Button>
             <Button
               variant="secondary"
               onClick={handleNextDay}
+              aria-label='Next Day'
             >
-              Next Day
+              <FontAwesomeIcon icon={faAnglesRight} />
             </Button>
           </ButtonGroup>
+          <div className="text-center w-100">
+            <ButtonGroup className='mt-3'>
+              <Button
+                variant='secondary'
+                onClick={() => getQuote(randomizeDateWithinRange().toISOString())}
+                aria-label='Random Quote'
+                style={{
+                  backgroundColor: "#ff0000bd",
+                  borderColor: "#ff0000bd",
+                }}
+              >
+                <FontAwesomeIcon icon={faDice} />
+              </Button>
+            </ButtonGroup>
+          </div>
         </Col>
       </Row>
     </Container>
