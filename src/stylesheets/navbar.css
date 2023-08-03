@@ -11,7 +11,7 @@
 }
 
 .navbar-custom .nav-link:hover {
-  color: #ffc107;
+  color: rgba(188, 186, 186, 0.892);
 }
 
 .navbar-custom .active {
@@ -26,4 +26,8 @@
 
 .navbar-title-cursive {
   font-family: Dancing Script, cursive;
+}
+
+.nav-link:focus {
+  color: white !important;
 }
