@@ -53,9 +53,9 @@ export const PostList = () => {
   const sortPosts = (option: string) => {
     let sortedPosts = [...posts];
     if (option === "newest") {
-      sortedPosts.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+      sortedPosts.sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime());
     } else if (option === "oldest") {
-      sortedPosts.sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+      sortedPosts.sort((a, b) => new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime());
     }
     setPosts(sortedPosts);
   };
