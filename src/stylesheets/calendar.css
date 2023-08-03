@@ -57,6 +57,20 @@
   font-size: 12px;
 }
 
+.react-calendar__tile--active {
+  background-color: transparent !important;
+  border: 1px solid #2e00fa !important;
+  border-radius: 8px !important;
+  color: black !important;
+}
+
+.react-calendar__tile--now {
+  background-color: transparent !important;
+  border: 1px solid #fa3200 !important;
+  border-radius: 8px !important;
+  color: black !important;
+}
+
 .react-calendar__tile__content {
   display: flex;
   justify-content: center;
