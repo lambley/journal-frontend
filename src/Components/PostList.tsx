@@ -318,8 +318,8 @@ export const PostList = () => {
         <Row className="d-flex justify-content-center align-items-center">
           {createPostButton()}
           <Col xs={12} sm={6} md={8}>
-            <ButtonGroup className="d-flex justify-content-center align-items-center">
-              <Row className="m-1 w-50">
+            <ButtonGroup className="d-flex justify-content-center align-items-center flex-column">
+              <Row className="m-1">
                 <Form.Label column xs={3}>Sort:</Form.Label>
                 <Col xs={9}>
                   <Form.Control
@@ -336,7 +336,7 @@ export const PostList = () => {
                   </Form.Control>
                 </Col>
               </Row>
-              <Row className="m-1 w-50">
+              <Row className="m-1">
                 <Form.Label column xs={3}>Search:</Form.Label>
                 <Col xs={9}>
                   <Form.Control
