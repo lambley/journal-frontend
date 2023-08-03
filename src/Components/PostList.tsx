@@ -249,28 +249,33 @@ export const PostList = () => {
   const createPostButton = () => {
     if (jwtToken) {
       return (
-        <Button
-          variant="info"
-          onClick={() => setShowForm(!showForm)}
-          className="button-transform"
-          aria-label={showForm ? "Close Form" : "Create New Quote"}
-        >
-          {showForm
-          ? (
-            <>
-              <span className="button-text">
-                <FontAwesomeIcon icon={faTimes} /> Close Form
-              </span>
-            </>
-          )
-          : (
-            <>
-              <span className="button-text">
-                <FontAwesomeIcon icon={faPlus} /> Create New Quote
-              </span>
-            </>
-          )}
-      </Button>
+        <Col xs={12} sm={6} md={4}>
+          <Button
+            variant="info"
+            onClick={() => setShowForm(!showForm)}
+            className="button-transform"
+            aria-label={showForm ? "Close Form" : "Create New Quote"}
+          >
+            {showForm
+            ? (
+              <>
+                <span className="button-text">
+                  <FontAwesomeIcon icon={faTimes} /> Close Form
+                </span>
+              </>
+            )
+            : (
+              <>
+                <span className="button-text">
+                  <FontAwesomeIcon icon={faPlus} /> Create New Quote
+                </span>
+              </>
+            )}
+          </Button>
+          <div className="post-form-foreground">
+            {showForm && <PostForm updatePostList={updatePostList} />}
+          </div>
+        </Col>
       )
     }
   }
@@ -310,22 +315,17 @@ export const PostList = () => {
           )
         }
         {/* Post Form and Sort/Filter Options */}
-        <Row>
-          <Col xs={12} sm={6} md={4}>
-            {createPostButton()}
-            <div className="post-form-foreground">
-              {showForm && <PostForm updatePostList={updatePostList} />}
-            </div>
-          </Col>
+        <Row className="d-flex justify-content-center align-items-center">
+          {createPostButton()}
           <Col xs={12} sm={6} md={8}>
-            <ButtonGroup>
-              <Row className="m-1">
-                <Form.Label column xs={3}>Sort by:</Form.Label>
+            <ButtonGroup className="d-flex justify-content-center align-items-center">
+              <Row className="m-1 w-50">
+                <Form.Label column xs={3}>Sort:</Form.Label>
                 <Col xs={9}>
                   <Form.Control
                     as="select"
                     value={sortOption}
-                    aria-label="Sort by:"
+                    aria-label="Sort"
                     onChange={(e) => {
                       setSortOption(e.target.value);
                       sortPosts(e.target.value);
@@ -336,7 +336,7 @@ export const PostList = () => {
                   </Form.Control>
                 </Col>
               </Row>
-              <Row className="m-1">
+              <Row className="m-1 w-50">
                 <Form.Label column xs={3}>Search:</Form.Label>
                 <Col xs={9}>
                   <Form.Control
