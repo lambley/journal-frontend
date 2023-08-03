@@ -4,4 +4,5 @@ export interface IPost {
   content: string;
   label: string;
   created_at: Date;
+  updated_at: Date;
 }

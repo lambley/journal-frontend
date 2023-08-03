@@ -36,6 +36,7 @@ export const PostForm = (props: { updatePostList: (post: IPost) => void }) => {
       content,
       label,
       created_at: new Date(),
+      updated_at: new Date(),
     };
 
     try {

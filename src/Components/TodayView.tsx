@@ -83,6 +83,7 @@ export const TodayView = () => {
           content={"No content yet!"}
           label={"No label yet!"}
           created_at={date}
+          updated_at={date}
         />
       );
     }

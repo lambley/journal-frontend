@@ -24,6 +24,7 @@ export const MyCalendar = () => {
       content: 'No content yet!',
       label: 'No label yet!',
       created_at: new Date(),
+      updated_at: new Date(),
     }
   );
   const [activeView, setActiveView] = useState<string>('Length');
@@ -67,6 +68,7 @@ export const MyCalendar = () => {
           content: 'No content yet!',
           label: 'No label yet!',
           created_at: date,
+          updated_at: date,
         });
       }
     } catch (error: any) {
