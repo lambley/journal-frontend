@@ -9,17 +9,16 @@ import { faTrashCan, faSquarePen, faTimes, faPlus } from '@fortawesome/free-soli
 import { Col, Button, Form, Row, ButtonGroup, Alert, Modal } from "react-bootstrap";
 import { throttle } from "lodash";
 
+interface IPostEditing {
+  isEdit: Boolean,
+  id: number
+}
+
 export const PostList = () => {
   const [originalPosts, setOriginalPosts] = useState<IPost[]>([]);
   const [posts, setPosts] = useState<IPost[]>([])
   const [isUpdated, setIsUpdated] = useState<Boolean>(false)
-  const [isEditing, setIsEditing] = useState<{
-    isEdit: Boolean,
-    id: number
-  }>({
-    isEdit: false,
-    id: 0
-  })
+  const [isEditing, setIsEditing] = useState<IPostEditing>({isEdit: false, id: 0 })
   const [showForm, setShowForm] = useState<Boolean>(false)
   const [sortOption, setSortOption] = useState<string>("newest");
   const [filterText, setFilterText] = useState<string>("");
