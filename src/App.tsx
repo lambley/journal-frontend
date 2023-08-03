@@ -36,7 +36,7 @@ function App() {
             <FontAwesomeIcon icon={faHouse} />
           </Navbar.Brand>
           <Navbar.Brand className="navbar-title ">
-            <h1 className='text-center'>WiseWords <FontAwesomeIcon icon={faCommentDots} /></h1>
+            <h1 className='text-center'><span className="navbar-title-cursive">W</span>ise<span className="navbar-title-cursive">W</span>ords <FontAwesomeIcon icon={faCommentDots} /></h1>
           </Navbar.Brand>
           <div className="ml-auto">
             { username
