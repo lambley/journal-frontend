@@ -6,7 +6,7 @@ import { axiosInstance } from "../Api/Api.js"
 import { IPost } from '../types/data.js';
 import moment, { Moment } from 'moment';
 import { Post } from './Post';
-import { ButtonGroup, Button, Form } from 'react-bootstrap';
+import { ButtonGroup, Button, Form, Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentDots } from '@fortawesome/free-solid-svg-icons';
 
@@ -144,7 +144,7 @@ export const MyCalendar = () => {
     const maxColour = `hsl(${baseColour - 60}, 75%, 75%)`;
 
     return (
-    <div className='mb-3'>
+    <div className='mb-3 calendar-view-container'>
       <h3>Colour Ranges:</h3>
       <Form.Label htmlFor='colorSlider'>Hue: {baseColour}</Form.Label>
       <Form.Range
@@ -171,7 +171,7 @@ export const MyCalendar = () => {
 
   const labelView = () => {
     return (
-      <div className='mb-3'>
+      <div className='mb-3 calendar-view-container'>
         <h3>Labels:</h3>
         <Link to={`/label/idea`} className='link post-label post-label-idea'>
           #idea
@@ -193,61 +193,67 @@ export const MyCalendar = () => {
     setActiveView(view);
   }
   return (
-    <div className="calendar-container mt-3">
-      <ButtonGroup>
-        <Button
-          variant={activeView === "Length" ? "secondary active" : "secondary"}
-          onClick={() => {handleViewClick("Length")}}
-        >
-          Length
-        </Button>
-        <Button
-          variant={activeView === "Label" ? "secondary active" : "secondary"}
-          onClick={() => {handleViewClick("Label")}}
-        >
-          Label
-        </Button>
-      </ButtonGroup>
-      <div className='mb-3 mt-3'>
-        <Calendar
-          className={'calendar'}
-          onChange={()=>handleDayClick}
-          value={value}
-          onClickDay={(value, event) => {
-            handleDayClick(value);
-          }}
-          tileContent={({ date, view }) => {
-            const backgroundColor = getTileColour(date);
-            return (
-              <div
-                className="calendar-tile"
-                style={{
-                  backgroundColor,
-                  borderRadius: '8px',
-                  width: '40px',
-                  height: '40px',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  color: 'white',
-                  marginLeft: 'auto',
-                  marginRight: 'auto',
-                }}
-                >
-                {backgroundColor == "transparent" ? null : <FontAwesomeIcon icon={faCommentDots} /> }
-              </div>
-            );
-          }}
-          />
-      </div>
-      {activeView === "Length"
-        ? lengthView()
-        : labelView()
-      }
-      {/* <div>
-        Selected Date {value!.toLocaleString('uk').split(', ')[0] || 'No date selected'}
-      </div> */}
-      <Post {...post} />
-    </div>
+    <Row className='mt-3 calendar-container'>
+      <Col md={6} className='d-flex flex-column align-items-center'>
+        <ButtonGroup>
+          <Button
+            variant={activeView === "Length" ? "secondary active" : "secondary"}
+            onClick={() => {handleViewClick("Length")}}
+          >
+            Length
+          </Button>
+          <Button
+            variant={activeView === "Label" ? "secondary active" : "secondary"}
+            onClick={() => {handleViewClick("Label")}}
+          >
+            Label
+          </Button>
+        </ButtonGroup>
+        <div className='mb-3 mt-3'>
+          <Calendar
+            className={'calendar'}
+            onChange={()=>handleDayClick}
+            value={value}
+            onClickDay={(value, event) => {
+              handleDayClick(value);
+            }}
+            tileContent={({ date, view }) => {
+              const backgroundColor = getTileColour(date);
+              return (
+                <div
+                  className="calendar-tile"
+                  style={{
+                    backgroundColor,
+                    borderRadius: '8px',
+                    width: '30px',
+                    height: '30px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    color: 'white',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                  }}
+                  >
+                  {backgroundColor == "transparent" ? null : <FontAwesomeIcon icon={faCommentDots} /> }
+                </div>
+              );
+            }}
+            />
+        </div>
+      </Col>
+      <Col md={6}>
+        {activeView === "Length"
+          ? lengthView()
+          : labelView()
+        }
+        {/* <div>
+          Selected Date {value!.toLocaleString('uk').split(', ')[0] || 'No date selected'}
+        </div> */}
+        <div className="post-container">
+          <Post {...post} />
+        </div>
+      </Col>
+    </Row>
   );
 };
