@@ -317,9 +317,9 @@ export const PostList = () => {
               {showForm && <PostForm updatePostList={updatePostList} />}
             </div>
           </Col>
-          <Col xs={12} sm={6} md={4}>
+          <Col xs={12} sm={6} md={8}>
             <ButtonGroup>
-              <Row className="mb-3">
+              <Row className="m-1">
                 <Form.Label column xs={3}>Sort by:</Form.Label>
                 <Col xs={9}>
                   <Form.Control
@@ -331,12 +331,12 @@ export const PostList = () => {
                       sortPosts(e.target.value);
                     }}
                   >
-                    <option value="newest">Newest</option>
+                    <option value="newest">Latest</option>
                     <option value="oldest">Oldest</option>
                   </Form.Control>
                 </Col>
               </Row>
-              <Row>
+              <Row className="m-1">
                 <Form.Label column xs={3}>Search:</Form.Label>
                 <Col xs={9}>
                   <Form.Control
