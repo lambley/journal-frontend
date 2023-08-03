@@ -246,6 +246,60 @@ export const PostList = () => {
     )
   }
 
+  const createPostButton = () => {
+    if (jwtToken) {
+      return (
+        <Button
+          variant="info"
+          onClick={() => setShowForm(!showForm)}
+          className="button-transform"
+          aria-label={showForm ? "Close Form" : "Create New Quote"}
+        >
+          {showForm
+          ? (
+            <>
+              <span className="button-text">
+                <FontAwesomeIcon icon={faTimes} /> Close Form
+              </span>
+            </>
+          )
+          : (
+            <>
+              <span className="button-text">
+                <FontAwesomeIcon icon={faPlus} /> Create New Quote
+              </span>
+            </>
+          )}
+      </Button>
+      )
+    }
+  }
+
+  const postButtons = (post:IPost) => {
+    if (jwtToken) {
+      return (
+        <div className="post-card-button-wrapper">
+          {/* Edit Button*/}
+          <button
+            className="post-button post-button-edit"
+            aria-label="Edit Post"
+            onClick={() => handleEditClick(post)}
+          >
+            <FontAwesomeIcon icon={faSquarePen} />
+          </button>
+          {/* Delete Button*/}
+          <button
+            className="post-button post-button-delete"
+            aria-label="Delete Post"
+            onClick={() => handleDelete(post.id!)}
+          >
+            <FontAwesomeIcon icon={faTrashCan} />
+          </button>
+        </div>
+      )
+    }
+  }
+
   return (
     <>
       <div className="mt-3">
@@ -258,26 +312,7 @@ export const PostList = () => {
         {/* Post Form and Sort/Filter Options */}
         <Row>
           <Col xs={12} sm={6} md={4}>
-            <Button
-              variant="info"
-              onClick={() => setShowForm(!showForm)}
-              className="button-transform"
-              aria-label={showForm ? "Close Form" : "Create New Quote"}
-            >
-              {showForm ? (
-                <>
-                  <span className="button-text">
-                    <FontAwesomeIcon icon={faTimes} /> Close Form
-                  </span>
-                </>
-              ) : (
-                <>
-                  <span className="button-text">
-                    <FontAwesomeIcon icon={faPlus} /> Create New Quote
-                  </span>
-                </>
-              )}
-            </Button>
+            {createPostButton()}
             <div className="post-form-foreground">
               {showForm && <PostForm updatePostList={updatePostList} />}
             </div>
@@ -319,24 +354,7 @@ export const PostList = () => {
         <div className="fixed-scroll container row">
           {posts.map((post: IPost) => (
             <Col sm={12} md={4} className="mb-3" key={post.id}>
-              <div className="post-card-button-wrapper">
-                {/* Edit Button*/}
-                <button
-                  className="post-button post-button-edit"
-                  aria-label="Edit Post"
-                  onClick={() => handleEditClick(post)}
-                >
-                  <FontAwesomeIcon icon={faSquarePen} />
-                </button>
-                {/* Delete Button*/}
-                <button
-                  className="post-button post-button-delete"
-                  aria-label="Delete Post"
-                  onClick={() => handleDelete(post.id!)}
-                >
-                  <FontAwesomeIcon icon={faTrashCan} />
-                </button>
-              </div>
+              {postButtons(post)}
               {isEditing.isEdit && isEditing.id === post.id ? (
                 editPostComponent(post)
               ) : (
