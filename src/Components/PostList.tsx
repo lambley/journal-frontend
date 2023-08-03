@@ -118,15 +118,10 @@ export const PostList = () => {
   const handleConfirmDelete = async () => {
     if (deletePostId) {
       try {
-        const response = await axiosInstance.delete(`/api/v1/posts/${deletePostId}`, {headers});
-        const index = posts.findIndex((post) => post.id === deletePostId);
-        if (index !== -1) {
-          const newPosts = [...posts];
-          newPosts.splice(index, 1);
-          setPosts(newPosts);
-        }
+        await axiosInstance.delete(`/api/v1/posts/${deletePostId}`, { headers });
+        const updatedPosts = posts.filter((post) => post.id !== deletePostId);
+        setPosts(updatedPosts);
         setIsUpdated(true);
-        sortPosts("newest");
       } catch (error) {
         console.log(error);
       }
