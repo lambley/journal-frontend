@@ -1,6 +1,6 @@
 # Quote App
 
-Client for Rails API [here](https://github.com/lambley/journal-api).
+Client for Rails API [here](https://github.com/lambley/journal-api). Hosted here: https://journal-frontend-smoky.vercel.app/
 
 ### `npm start`
 
